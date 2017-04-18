@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_balloon"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    android:orientation="vertical"
+    android:background="#667B99"
+    tools:context="com.example.oscar.cmsc436.activities.LevelActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\n\nPop each balloon when it appears. Your average response time will be recorded over a span of ten popped balloons. Click Start to begin"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:id="@+id/text_area"/>
+
+    <Button
+        android:id="@+id/mBalloon"
+
+        android:text="START"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circlebutton"
+        android:shadowColor="#DC5C05"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:onClick="startTest" />
+
+    <Button
+        android:id="@+id/leftHandButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startTest(1)"
+        android:text="Left hand" />
+
+    <Button
+        android:id="@+id/rightHandButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startTest(2)"
+        android:text="Right Hand" />
+
+</LinearLayout>

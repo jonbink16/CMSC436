@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tap"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#AFBBD2"
+    tools:context="com.example.oscar.cmsc436.activities.TapActivity">
+
+    <TextView
+        android:text="The tap test keeps track of the number of times you can tap the screen within ten seconds.
+        \nYou will start with the left hand for 3 rounds, then the right hand for 3 rounds."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tapTestInstr"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Seconds remaining: 10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:textStyle="bold"
+        android:id="@+id/timerText" />
+
+    <Button
+        android:text="Start left hand test # 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startTap"
+        android:onClick="startTest"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="#667B99" />
+
+    <Button
+        android:id="@+id/tapAreaButton"
+
+        android:text="Tap Here"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circlebutton"
+        android:shadowColor="#DC5C05"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

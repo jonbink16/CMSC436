@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_curl_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.oscar.cmsc436.activities.ArmTestActivity">
+
+    <TextView
+        android:text="Press the button to start the test. Hold phone straight out. When the phone vibrates, bring phone to shoulder or as close to your shoulder as possible."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/instructions"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:text="Time: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/elapsedtime"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <!--<TextView
+        android:text="X: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/elapsedtime"
+        android:layout_alignRight="@+id/elapsedtime"
+        android:layout_alignEnd="@+id/elapsedtime"
+        android:id="@+id/xcoord" />
+
+    <TextView
+        android:text="Z: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ycoord"
+        android:layout_alignLeft="@+id/ycoord"
+        android:layout_alignStart="@+id/ycoord"
+        android:id="@+id/zcoord" />
+
+    <TextView
+        android:text="Y: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ycoord"
+        android:layout_below="@+id/xcoord"
+        android:layout_alignLeft="@+id/xcoord"
+        android:layout_alignStart="@+id/xcoord" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/zcoord"
+        android:layout_alignRight="@+id/zcoord"
+        android:layout_alignEnd="@+id/zcoord"
+        android:id="@+id/inclination" /> -->
+
+    <TextView
+        android:text="Max Inclination: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/max_inclination"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/elapsedtime"/>
+    <!--android:layout_below="@+id/inclination"
+    android:layout_alignRight="@+id/inclination"
+    android:layout_alignEnd="@+id/inclination"-->
+
+
+    <Button
+        android:id="@+id/startCurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Countdown"
+        android:layout_below="@+id/instructions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp" />
+</RelativeLayout>

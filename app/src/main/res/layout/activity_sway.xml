@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#AFBBD2"
+    tools:context="com.example.oscar.cmsc436.activities.SwayActivity">
+
+    <TextView
+        android:id="@+id/sway_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This test will measure the displacement from the center point where you begin. \n\nInstructions:\tYou will need to attach your device to your head using a headband (or something similar). Click on the VOLUME UP button when you are ready to start the test. There will be a brief delay and the test will begin when you hear the beep sound."
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/x_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="X: " />
+
+    <TextView
+        android:id="@+id/y_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Y:  "/>
+
+    <TextView
+        android:id="@+id/z_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Z: " />
+
+    <Button
+        android:id="@+id/temp_start_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="beginTest"
+        android:text="Click here to start" />
+
+    <TextView
+        android:id="@+id/temp_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+</LinearLayout>
