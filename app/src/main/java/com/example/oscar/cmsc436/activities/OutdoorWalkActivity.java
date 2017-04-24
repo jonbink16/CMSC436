@@ -8,15 +8,11 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Looper;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.example.oscar.cmsc436.R;
@@ -32,11 +28,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.common.base.Stopwatch;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class OutdoorWalkActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
@@ -45,7 +39,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private long startTime, endTime;
     private LocationManager manager;
     private Location previousLoc;
-    private TreeSet<Polyline> lineSet;
+    private Set<Polyline> lineSet;
     private String provider;
     private double dist;
     private boolean testStart;
@@ -65,7 +59,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
 
         MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
-        lineSet = new TreeSet<>();
+        lineSet = new HashSet<>();
         dist = 0;
         mps = 0;
         previousLoc = null;
@@ -91,6 +85,8 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             @Override
             public void onClick(View v) {
                 testStart = true;
+                mps = 0;
+                dist = 0;
                 startTime = SystemClock.elapsedRealtime();
                 if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED &&
@@ -116,10 +112,9 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 endTime = SystemClock.elapsedRealtime();
                 long elapsedMilli = endTime-startTime;
                 double realTime = elapsedMilli/1000.0;
-                mps = realTime/dist;
+                mps = dist/realTime;
                 ((TextView)findViewById(R.id.outdoorTimerText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
                 manager.removeUpdates(OutdoorWalkActivity.this);
-                dist = 0;
             }
         });
     }
