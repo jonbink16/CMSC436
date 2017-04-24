@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" filepath="$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" filepath="$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sheets436-0.0.4-release/sheets436-0.0.4-release.iml" filepath="$PROJECT_DIR$/sheets436-0.0.4-release/sheets436-0.0.4-release.iml" />
     </modules>
   </component>
 </project>

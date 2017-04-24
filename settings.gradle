@@ -1,1 +1,1 @@
-include ':app', ':googlesheetshelper-1.2.2-release'
+include ':app', ':googlesheetshelper-1.2.2-release', ':sheets436-0.0.4-release'
