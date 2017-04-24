@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public void swayTest(View view) {
         startActivity(new Intent(this, SwayActivity.class));
     }
+    public void outdoorWalkingTest(View view){startActivity(new Intent(this, OutdoorWalkActivity.class));}
 
     public void changeID(View view){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
