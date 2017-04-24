@@ -1,7 +1,6 @@
 package com.example.oscar.cmsc436.activities;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
