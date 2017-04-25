@@ -110,7 +110,6 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             @Override
             public void onClick(View v) {
                 testStart = true;
-                markers = new ArrayList<>();
                 findViewById(R.id.startWalk).setEnabled(false);
                 findViewById(R.id.endWalk).setEnabled(true);
                 mps = 0;
@@ -139,6 +138,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 if(startMarker != null) {
                     startMarker.remove();
                     startMarker = null;
+                    markers = new ArrayList<>();
                 }
                 startMarker = map.addMarker(new MarkerOptions().position(latLng).title("Start"));
                 startMarker.setIcon(BitmapDescriptorFactory
