@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.oscar.cmsc436.R;
+import com.example.oscar.cmsc436.data.Database;
+import com.example.oscar.cmsc436.data.tests.OutdoorWalkTest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,7 +42,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private Location previousLoc;
     private Set<Polyline> lineSet;
     private String provider;
-    private double dist;
+    private float dist;
     private boolean testStart;
     private final int REQUEST = 1;
     private GoogleMap map;
@@ -48,8 +50,8 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private Marker mCurrLocationMarker, startLocationMarker, endLocationMarker;
     private final long MIN_TIME = 5000;
     private final float MIN_DIST = 10;
-    private double mps;
-
+    private float mps;
+    private Database db = Database.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +143,8 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                     endTime = SystemClock.elapsedRealtime();
                     long elapsedMilli = endTime - startTime;
                     double realTime = elapsedMilli / 1000.0;
-                    mps = dist / realTime;
+                    mps = dist / (float)realTime;
+                    db.addOutdoorWalkTest(new OutdoorWalkTest(elapsedMilli, dist, mps));
                     ((TextView) findViewById(R.id.outdoorWalkText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
                     manager.removeUpdates(OutdoorWalkActivity.this);
                 }
