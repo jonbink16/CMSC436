@@ -170,7 +170,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         findViewById(R.id.endWalk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                map.snapshot(callback);
+
                 testStart = false;
                 findViewById(R.id.startWalk).setEnabled(true);
                 findViewById(R.id.endWalk).setEnabled(false);
@@ -193,6 +193,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 map.moveCamera(cu);
                 mCurrLocationMarker.setIcon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                map.snapshot(callback);
             }
         });
     }
