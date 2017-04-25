@@ -9,8 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/googlesheetshelper-1.2.2-release" />
-            <option value="$PROJECT_DIR$/sheets436-0.0.4-release" />
+            <option value="$PROJECT_DIR$/sheets436-0.0.5-release" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
