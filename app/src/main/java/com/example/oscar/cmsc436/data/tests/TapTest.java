@@ -9,7 +9,7 @@ import java.util.Date;
 public class TapTest {
 
     private int[] right, left;
-    private double rAvg, lAvg;
+    private float rAvg, lAvg;
     private Date date;
 
     public TapTest(int[] left, int[] right, Date date) {
@@ -21,15 +21,15 @@ public class TapTest {
             l += left[i];
             r += right[i];
         }
-        lAvg = (double)l/(double)left.length;
-        rAvg = (double)r/(double)right.length;
+        lAvg = (float)l/(float)left.length;
+        rAvg = (float)r/(float)right.length;
     }
 
-    public double getRtAvg(){
+    public float getRtAvg(){
         return rAvg;
     }
 
-    public double getLtAvg(){
+    public float getLtAvg(){
         return lAvg;
     }
 
@@ -37,9 +37,21 @@ public class TapTest {
         return date;
     }
 
-    public int[] getRight(){ return right; }
+    public float[] getRight(){
+        float[] f = new float[right.length];
+        for(int i = 0; i < right.length; i++){
+            f[i] = right[i];
+        }
+        return f;
+    }
 
-    public int[] getLeft(){ return left; }
+    public float[] getLeft(){
+        float[] f = new float[left.length];
+        for(int i = 0; i < left.length; i++){
+            f[i] = left[i];
+        }
+        return f;
+    }
 
 
     public String toString(){
