@@ -206,6 +206,7 @@ public class Database {
             balloonStore = new ArrayList<>();
             spiralStore = new ArrayList<>();
             levelStore = new ArrayList<>();
+            outdoorWalkStore = new ArrayList<>();
             //initialize other structures
         }
 
