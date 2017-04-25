@@ -1,19 +1,24 @@
 package com.example.oscar.cmsc436.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
 import com.example.oscar.cmsc436.data.Database;
@@ -35,6 +40,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 
 public class OutdoorWalkActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
@@ -57,6 +63,14 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private final float MIN_DIST = 10;
     private float mps;
 
+    private GoogleMap.SnapshotReadyCallback callback;
+
+    String[] permissions= new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +91,19 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         mCurrLocationMarker = null;
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},  REQUEST);
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},  REQUEST);
+        }*/
+
+
+        hasPermissions(this, permissions);
+
+        if(!hasPermissions(this, permissions)){
+            ActivityCompat.requestPermissions(this, permissions, REQUEST);
         }
 
         findViewById(R.id.endWalk).setEnabled(false);
@@ -113,9 +134,37 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             }
         });
 
+
+        callback = new GoogleMap.SnapshotReadyCallback() {
+            Bitmap bitmap;
+
+            @Override
+            public void onSnapshotReady(Bitmap snapshot) {
+                bitmap = snapshot;
+
+                String imgSaved = MediaStore.Images.Media.insertImage(
+                        getContentResolver(),
+                        bitmap,
+                        UUID.randomUUID().toString()+".png",
+                        "drawing");
+
+                if(imgSaved!=null){
+                    Toast savedToast = Toast.makeText(getApplicationContext(),
+                            "Map Image saved to Gallery!", Toast.LENGTH_SHORT);
+                    savedToast.show();
+                } else{
+                    Toast unsavedToast = Toast.makeText(getApplicationContext(),
+                            "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+                    unsavedToast.show();
+                }
+
+            }
+        };
+
         findViewById(R.id.endWalk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                map.snapshot(callback);
                 testStart = false;
                 findViewById(R.id.startWalk).setEnabled(true);
                 findViewById(R.id.endWalk).setEnabled(false);
@@ -141,6 +190,17 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                         .defaultMarker(BitmapDescriptorFactory.HUE_RED));
             }
         });
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
