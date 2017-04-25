@@ -79,12 +79,14 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},  REQUEST);
         }
 
-
+        findViewById(R.id.endWalk).setEnabled(false);
         findViewById(R.id.startWalk).setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 testStart = true;
+                findViewById(R.id.startWalk).setEnabled(false);
+                findViewById(R.id.endWalk).setEnabled(true);
                 mps = 0;
                 dist = 0;
                 startTime = SystemClock.elapsedRealtime();
@@ -205,6 +207,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         map.moveCamera(cameraUpdate);
         uiSettings = map.getUiSettings();
         uiSettings.setAllGesturesEnabled(false);
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
     }
 
 }
