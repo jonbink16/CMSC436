@@ -59,7 +59,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private UiSettings uiSettings;
     private Marker startMarker, mCurrLocationMarker;
     private ArrayList<Marker> markers = new ArrayList<>();
-    private final long MIN_TIME = 10;
+    private final long MIN_TIME = 10000;
     private final float MIN_DIST = 10;
     private float mps;
 
@@ -89,16 +89,6 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         provider = manager.getBestProvider(criteria, false);
         testStart = false;
         mCurrLocationMarker = null;
-
-
-        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},  REQUEST);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},  REQUEST);
-        }*/
-
 
         hasPermissions(this, permissions);
 
