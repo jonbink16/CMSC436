@@ -24,11 +24,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +41,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private long startTime, endTime;
     private LocationManager manager;
     private Location previousLoc;
+    private LatLng startLatLng, endLatLng;
     private Set<Polyline> lineSet;
     private String provider;
     private double dist;
@@ -46,7 +49,8 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private final int REQUEST = 1;
     private GoogleMap map;
     private UiSettings uiSettings;
-    private Marker mCurrLocationMarker;
+    private Marker startMarker, mCurrLocationMarker;
+    private ArrayList<Marker> markers = new ArrayList<>();
     private final long MIN_TIME = 10;
     private final float MIN_DIST = 10;
     private double mps;
@@ -111,12 +115,26 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             @Override
             public void onClick(View v) {
                 testStart = false;
+                findViewById(R.id.startWalk).setEnabled(true);
+                findViewById(R.id.endWalk).setEnabled(false);
                 endTime = SystemClock.elapsedRealtime();
                 long elapsedMilli = endTime-startTime;
                 double realTime = elapsedMilli/1000.0;
                 mps = dist/realTime;
                 ((TextView)findViewById(R.id.outdoorTimerText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
                 manager.removeUpdates(OutdoorWalkActivity.this);
+
+                // Center Camera between the two points
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (Marker marker : markers) {
+                    builder.include(marker.getPosition());
+                }
+                LatLngBounds bounds = builder.build();
+                int padding = 300; // Padding between marker and edges of the map
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                map.moveCamera(cu);
+                mCurrLocationMarker.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED));
             }
         });
     }
@@ -139,7 +157,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         }
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
+        endLatLng = latLng;
         Polyline line = map.addPolyline(new PolylineOptions()
                 .add(prevLatLng, latLng)
                 .width(5)
@@ -150,7 +168,10 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = map.addMarker(markerOptions);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+
+        markers.add(mCurrLocationMarker);
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 18);
         map.moveCamera(cameraUpdate);
     }
 
@@ -202,12 +223,19 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+        startMarker = map.addMarker(new MarkerOptions().position(latLng).title("Start"));
+        startMarker.setIcon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        markers.add(startMarker);
+
         mCurrLocationMarker = map.addMarker(markerOptions);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+        startLatLng = latLng;
         map.moveCamera(cameraUpdate);
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         uiSettings = map.getUiSettings();
         uiSettings.setAllGesturesEnabled(false);
-        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
     }
 
 }

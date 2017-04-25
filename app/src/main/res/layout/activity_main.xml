@@ -79,7 +79,7 @@
                 android:id="@+id/postButton"
                 android:onClick="postData"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/armTest"
+                android:layout_below="@+id/changeButton"
                 android:background="#FFFFFF" />
 
             <Button
@@ -88,10 +88,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/swayTest"
                 android:onClick="swayTest"
-                android:background="#FFFFFF"
-                android:layout_alignBaseline="@+id/postButton"
-                android:layout_alignBottom="@+id/postButton"
-                android:layout_alignParentStart="true" />
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/armTest"
+                android:background="#FFFFFF" />
 
             <Button
                 android:text="Walking Test"
@@ -100,7 +99,7 @@
                 android:id="@+id/walkingTest"
                 android:onClick="walkingTest"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/postButton"
+                android:layout_below="@+id/swayTest"
                 android:background="#FFFFFF" />
 
             <Button
@@ -110,7 +109,7 @@
                 android:id="@+id/outdoorWalkingTest"
                 android:onClick="outdoorWalkingTest"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/swayTest"
+                android:layout_below="@+id/walkingTest"
                 android:background="#FFFFFF" />
 
             <Button
@@ -120,7 +119,7 @@
                 android:id="@+id/changeButton"
                 android:onClick="changeID"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/walkingTest"
+                android:layout_below="@+id/outdoorWalkingTest"
                 android:background="#FFFFFF" />
 
             <TextView
@@ -135,12 +134,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-
         </RelativeLayout>
-
-
-
-
     </ScrollView>
-
 </RelativeLayout>

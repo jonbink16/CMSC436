@@ -38,4 +38,5 @@
         android:id="@+id/map_fragment"
         />
 
+
 </LinearLayout>
