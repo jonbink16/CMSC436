@@ -83,6 +83,12 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
 
             @Override
             public void onClick(View v) {
+                if(startLocationMarker != null){
+                    startLocationMarker.remove();
+                }
+                if(endLocationMarker != null){
+                    endLocationMarker.remove();
+                }
                 testStart = true;
                 mps = 0;
                 dist = 0;
@@ -104,7 +110,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title("Starting position");
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                 startLocationMarker = map.addMarker(markerOptions);
                 ((TextView)findViewById(R.id.outdoorWalkText)).setText("Walk started.\n\n");
                 manager.requestLocationUpdates(provider,MIN_TIME,MIN_DIST,OutdoorWalkActivity.this);
@@ -116,6 +122,22 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             public void onClick(View v) {
                 if(testStart) {
                     testStart = false;
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                            PackageManager.PERMISSION_GRANTED &&
+                            ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                                    != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    Location loc = manager.getLastKnownLocation(provider);
+                    LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title("Ending position");
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    endLocationMarker = map.addMarker(markerOptions);
+                    if(mCurrLocationMarker != null){
+                        mCurrLocationMarker.remove();
+                    }
                     endTime = SystemClock.elapsedRealtime();
                     long elapsedMilli = endTime - startTime;
                     double realTime = elapsedMilli / 1000.0;
