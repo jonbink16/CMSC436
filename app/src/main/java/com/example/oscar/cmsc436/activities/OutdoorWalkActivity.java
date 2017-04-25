@@ -59,7 +59,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private UiSettings uiSettings;
     private Marker startMarker, mCurrLocationMarker;
     private ArrayList<Marker> markers = new ArrayList<>();
-    private final long MIN_TIME = 10000;
+    private final long MIN_TIME = 5000;
     private final float MIN_DIST = 10;
     private float mps;
 
@@ -280,6 +280,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -302,7 +303,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
         startLatLng = latLng;
         map.moveCamera(cameraUpdate);
-        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
         uiSettings = map.getUiSettings();
         uiSettings.setAllGesturesEnabled(false);
     }
