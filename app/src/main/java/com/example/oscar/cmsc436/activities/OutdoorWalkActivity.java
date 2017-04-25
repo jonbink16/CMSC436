@@ -110,6 +110,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             @Override
             public void onClick(View v) {
                 testStart = true;
+                markers = new ArrayList<>();
                 findViewById(R.id.startWalk).setEnabled(false);
                 findViewById(R.id.endWalk).setEnabled(true);
                 mps = 0;
@@ -129,6 +130,20 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                     p.setVisible(false);
                 }
                 manager.requestLocationUpdates(provider,MIN_TIME,MIN_DIST,OutdoorWalkActivity.this);
+
+                LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title("Current Position");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                if(startMarker != null) {
+                    startMarker.remove();
+                    startMarker = null;
+                }
+                startMarker = map.addMarker(new MarkerOptions().position(latLng).title("Start"));
+                startMarker.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                markers.add(startMarker);
             }
         });
 
