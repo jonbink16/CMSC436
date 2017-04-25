@@ -29,7 +29,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/outdoorTimerText"/>
+        android:id="@+id/outdoorWalkText"
+        android:text="\n\n\n"/>
 
     <fragment
         android:name="com.google.android.gms.maps.MapFragment"

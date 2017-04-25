@@ -25,7 +25,7 @@
                 android:id="@+id/tapTest"
                 android:onClick="tapTest"
                 android:background="#AFBBD2"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/selectTest"
                 android:layout_alignParentStart="true" />
 
@@ -36,7 +36,7 @@
                 android:id="@+id/spiralTest"
                 android:onClick="spiralTest"
                 android:background="#CCD5E6"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/tapTest"
                 android:layout_alignParentStart="true" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/levelTest"
                 android:onClick="levelTest"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="20dp"
                 android:background="#E9EEF6"
                 android:layout_below="@+id/spiralTest"
                 android:layout_alignParentStart="true" />
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/balloonTest"
                 android:onClick="balloonTest"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="20dp"
                 android:background="#FFFFFF"
                 android:layout_below="@+id/levelTest"
                 android:layout_alignParentStart="true" />
@@ -67,20 +67,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/armTest"
                 android:onClick="armTest"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:background="#FFFFFF"
                 android:layout_below="@+id/balloonTest"
                 android:layout_alignParentStart="true" />
 
-            <Button
-                android:text="Post Data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/postButton"
-                android:onClick="postData"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/armTest"
-                android:background="#FFFFFF" />
 
             <Button
                 android:text="Sway Test"
@@ -89,9 +80,8 @@
                 android:id="@+id/swayTest"
                 android:onClick="swayTest"
                 android:background="#FFFFFF"
-                android:layout_alignBaseline="@+id/postButton"
-                android:layout_alignBottom="@+id/postButton"
-                android:layout_alignParentStart="true" />
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/armTest" />
 
             <Button
                 android:text="Walking Test"
@@ -100,7 +90,7 @@
                 android:id="@+id/walkingTest"
                 android:onClick="walkingTest"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/postButton"
+                android:layout_below="@+id/swayTest"
                 android:background="#FFFFFF" />
 
             <Button
@@ -110,7 +100,17 @@
                 android:id="@+id/outdoorWalkingTest"
                 android:onClick="outdoorWalkingTest"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/swayTest"
+                android:layout_below="@+id/walkingTest"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:text="Post Data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/postButton"
+                android:onClick="postData"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/outdoorWalkingTest"
                 android:background="#FFFFFF" />
 
             <Button
@@ -120,7 +120,7 @@
                 android:id="@+id/changeButton"
                 android:onClick="changeID"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/walkingTest"
+                android:layout_below="@+id/postButton"
                 android:background="#FFFFFF" />
 
             <TextView

@@ -45,8 +45,8 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private final int REQUEST = 1;
     private GoogleMap map;
     private UiSettings uiSettings;
-    private Marker mCurrLocationMarker;
-    private final long MIN_TIME = 10;
+    private Marker mCurrLocationMarker, startLocationMarker, endLocationMarker;
+    private final long MIN_TIME = 5000;
     private final float MIN_DIST = 10;
     private double mps;
 
@@ -100,6 +100,13 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 for(Polyline p : lineSet){
                     p.setVisible(false);
                 }
+                LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title("Starting position");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                startLocationMarker = map.addMarker(markerOptions);
+                ((TextView)findViewById(R.id.outdoorWalkText)).setText("Walk started.\n\n");
                 manager.requestLocationUpdates(provider,MIN_TIME,MIN_DIST,OutdoorWalkActivity.this);
             }
         });
@@ -107,13 +114,15 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         findViewById(R.id.endWalk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testStart = false;
-                endTime = SystemClock.elapsedRealtime();
-                long elapsedMilli = endTime-startTime;
-                double realTime = elapsedMilli/1000.0;
-                mps = dist/realTime;
-                ((TextView)findViewById(R.id.outdoorTimerText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
-                manager.removeUpdates(OutdoorWalkActivity.this);
+                if(testStart) {
+                    testStart = false;
+                    endTime = SystemClock.elapsedRealtime();
+                    long elapsedMilli = endTime - startTime;
+                    double realTime = elapsedMilli / 1000.0;
+                    mps = dist / realTime;
+                    ((TextView) findViewById(R.id.outdoorWalkText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
+                    manager.removeUpdates(OutdoorWalkActivity.this);
+                }
             }
         });
     }
@@ -187,6 +196,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
