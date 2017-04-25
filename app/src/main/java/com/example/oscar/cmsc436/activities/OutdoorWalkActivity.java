@@ -182,7 +182,6 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                     builder.include(marker.getPosition());
                 }
                 LatLngBounds bounds = builder.build();
-                System.out.println(bounds.toString());
                 int padding = 300; // Padding between marker and edges of the map
                 CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
                 map.moveCamera(cu);
