@@ -121,7 +121,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                 long elapsedMilli = endTime-startTime;
                 double realTime = elapsedMilli/1000.0;
                 mps = dist/realTime;
-                ((TextView)findViewById(R.id.outdoorTimerText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
+                ((TextView)findViewById(R.id.outdoorWalkText)).setText(String.valueOf(realTime) + " seconds elapsed." + "\nDistance: " + dist + " meters.\n" + mps + " m/s.");
                 manager.removeUpdates(OutdoorWalkActivity.this);
 
                 // Center Camera between the two points
