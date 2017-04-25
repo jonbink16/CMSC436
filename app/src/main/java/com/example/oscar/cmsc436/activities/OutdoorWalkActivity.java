@@ -154,6 +154,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                         "drawing");
 
                 if(imgSaved!=null){
+                    Database.getInstance().addImage(bitmap);
                     Toast savedToast = Toast.makeText(getApplicationContext(),
                             "Map Image saved to Gallery!", Toast.LENGTH_SHORT);
                     savedToast.show();

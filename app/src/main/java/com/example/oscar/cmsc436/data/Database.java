@@ -1,6 +1,7 @@
 package com.example.oscar.cmsc436.data;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 
 import com.example.oscar.cmsc436.data.tests.ArmTest;
@@ -184,6 +185,16 @@ public class Database {
             hashStore.get(curr_ID).outdoorWalkStore.add(t);
 
         }
+    }
+
+    private HashSet<Bitmap> images = new HashSet<>();
+
+    public void addImage(Bitmap bmp){
+        images.add(bmp);
+    }
+
+    public HashSet<Bitmap> getImages(){
+        return images;
     }
 
 

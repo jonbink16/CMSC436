@@ -1,6 +1,7 @@
 package com.example.oscar.cmsc436.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,6 +85,9 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         for(OutdoorWalkTest o : hashStore.get(ID).getOutdoorWalkStore()){
             System.out.println(o.getMps());
             sheet.writeData(Sheets.TestType.OUTDOOR_WALKING, ID, o.getMps());
+        }
+        for(Bitmap b : db.getImages()){
+            sheet.uploadToDrive(getString(R.string.folder_name), "image", b);
         }
     }
 
