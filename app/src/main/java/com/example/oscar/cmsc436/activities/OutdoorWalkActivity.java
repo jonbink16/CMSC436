@@ -37,7 +37,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -59,7 +61,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     private UiSettings uiSettings;
     private Marker startMarker, mCurrLocationMarker;
     private ArrayList<Marker> markers = new ArrayList<>();
-    private final long MIN_TIME = 5000;
+    private final long MIN_TIME = 5000, MIN_TIME_BEFORE = 100000;
     private final float MIN_DIST = 10;
     private float mps;
 
@@ -76,7 +78,11 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outdoor_walk);
+        hasPermissions(this, permissions);
 
+        if(!hasPermissions(this, permissions)){
+            ActivityCompat.requestPermissions(this, permissions, REQUEST);
+        }
         MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
         lineSet = new HashSet<>();
@@ -84,17 +90,22 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
         mps = 0;
         previousLoc = null;
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
         final Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
         provider = manager.getBestProvider(criteria, false);
+        if(provider == null){
+            Toast.makeText(getApplicationContext(), "There is an issue with your location provider, " +
+                            "please close the app and try again." , Toast.LENGTH_SHORT).show();
+            return;
+        }
+        manager.requestLocationUpdates(provider,MIN_TIME, MIN_DIST, OutdoorWalkActivity.this);
+
         testStart = false;
         mCurrLocationMarker = null;
 
-        hasPermissions(this, permissions);
 
-        if(!hasPermissions(this, permissions)){
-            ActivityCompat.requestPermissions(this, permissions, REQUEST);
-        }
 
         findViewById(R.id.endWalk).setEnabled(false);
         findViewById(R.id.startWalk).setOnClickListener(new View.OnClickListener(){
@@ -154,7 +165,13 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
                         "drawing");
 
                 if(imgSaved!=null){
-                    Database.getInstance().addImage(bitmap);
+                    Calendar c = Calendar.getInstance();
+                    System.out.println("Current time => "+c.getTime());
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+                    String formattedDate = df.format(c.getTime());
+                    String imgName = "outdoorWalk" + formattedDate;
+                    Database.getInstance().addImage(imgName, bitmap);
                     Toast savedToast = Toast.makeText(getApplicationContext(),
                             "Map Image saved to Gallery!", Toast.LENGTH_SHORT);
                     savedToast.show();
@@ -212,6 +229,9 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
 
     @Override
     public void onLocationChanged(Location location) {
+        if(location == null){
+            return;
+        }
         LatLng prevLatLng;
         if(previousLoc == null){
             previousLoc = location;
@@ -289,6 +309,7 @@ public class OutdoorWalkActivity extends AppCompatActivity implements LocationLi
             return;
         }
         Location location = manager.getLastKnownLocation(provider);
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);

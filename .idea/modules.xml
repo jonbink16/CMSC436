@@ -3,11 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CMSC436.iml" filepath="$PROJECT_DIR$/CMSC436.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CMSC4361.iml" filepath="$PROJECT_DIR$/CMSC4361.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" filepath="$PROJECT_DIR$/googlesheetshelper-1.2.2-release/googlesheetshelper-1.2.2-release.iml" />
       <module fileurl="file://$PROJECT_DIR$/sheets436-0.0.5-release/sheets436-0.0.5-release.iml" filepath="$PROJECT_DIR$/sheets436-0.0.5-release/sheets436-0.0.5-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sheets436-0.0.6-release/sheets436-0.0.6-release.iml" filepath="$PROJECT_DIR$/sheets436-0.0.6-release/sheets436-0.0.6-release.iml" />
     </modules>
   </component>
 </project>
