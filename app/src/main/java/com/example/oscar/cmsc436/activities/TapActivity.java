@@ -21,8 +21,7 @@ import static com.example.oscar.cmsc436.R.id.tapAreaButton;
 
 public class TapActivity extends AppCompatActivity {
     //test parameters: TestTime --> time of each test, NumTests --> number of trials
-    private final int numTests = 3,
-            testTime = 1;
+    private final int numTests = 3, testTime = 10;
     private Database db = Database.getInstance();
     private TextView timer;
     private Button startTest;
@@ -30,7 +29,8 @@ public class TapActivity extends AppCompatActivity {
     private Button tapArea;
     private int[] left, right;
     private int testNum, numTaps, leftTaps, rightTaps, tempNum, secLeft, time, diameter;
-    private double rAvg, lAvg;
+    private long prevTime, currTime, timeDiff;
+    private double rAvg, lAvg, leftSecPerTap, rightSecPerTap;
     private boolean leftTest;
     private String hand = "left";
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
@@ -97,13 +97,17 @@ public class TapActivity extends AppCompatActivity {
                         rightTaps += right[i];
                     }
                     rAvg = rightTaps/numTests;
-                    timer.setText("Tests finished. Avg number of taps for"
-                            + "\nLeft hand: " + lAvg + "\nRight hand: " + rAvg);
+                    rightSecPerTap = timeDiff / rightTaps;
+                    timer.setText("Tests finished." + "Left hand:" +
+                            "\nAvg number of taps: " + lAvg +
+                            "\nAvg milliseconds between taps: " + leftSecPerTap +
+                            "\nRight hand:" +
+                            "\nAvg number of taps: " + rAvg +
+                            "\nAvg milliseconds between taps: " + rightSecPerTap);
 
                     db.addTapTest(new TapTest(left, right, new Date()));
 
                 }else{
-
                     testNum++;
 
                     if (testNum == numTests) {
@@ -116,8 +120,10 @@ public class TapActivity extends AppCompatActivity {
                             leftTaps += left[i];
                         }
                         lAvg = leftTaps/numTests;
+                        leftSecPerTap = timeDiff / leftTaps;
                         timer.setText("Number of total taps for the left hand: " +
                                 leftTaps + "\nAvg number of taps for the left hand: " + lAvg +
+                                "\nAvg milliseconds between taps: " + leftSecPerTap +
                                 "\nNow we will perform tasks on the right hand.");
                     }
                     // Hide button for 3 seconds after test finishes so user doesn't accidentally
@@ -162,10 +168,16 @@ public class TapActivity extends AppCompatActivity {
 
         tapArea.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if(prevTime == 0){
+                    prevTime = System.currentTimeMillis();
+                } else {
+                    currTime = System.currentTimeMillis();
+                    timeDiff += (currTime - prevTime);
+                    prevTime = currTime;
+                }
                 tapArea.startAnimation(buttonClick);
                 numTaps++;
             }
         });
-
     }
 }

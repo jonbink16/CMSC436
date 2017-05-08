@@ -93,7 +93,7 @@ public class BubbleView extends View {
         //shapeSize = (int) outline.getRadius();
         System.out.println(bubble.getShape());
         bubble.setBounds(x, y, x + diameter, y + diameter);
-        bubble.getPaint().setColor(0xff00cccc);
+        bubble.getPaint().setColor(0xff00ff00);
     }
     protected void onDraw(Canvas canvas) { // Draws the circle based on bounds
         super.onDraw(canvas);
@@ -118,6 +118,17 @@ public class BubbleView extends View {
         if ((y - b) >= 0 && (y - b) <=
                 WIDTH - diameter)
             y = (int) (y - b);
+
+        // Changes ball to red if the center of the ball passes the innermost ring
+        double radius = WIDTH / 2;
+        double d = distance(x, y);
+        double distToRadius = d / radius;
+        double ballToRadius = diameter / radius;
+        if (distToRadius > ballToRadius)
+            bubble.getPaint().setColor(0xffff0000); // Ball set to Red
+        else
+            bubble.getPaint().setColor(0xff00ff00); // Ball set to green
+
         // Set bounds of ball to stay within an image located in center
         bubble.setBounds(x, y, x + diameter, y + diameter);
         rect = bubble.getBounds();
@@ -131,6 +142,9 @@ public class BubbleView extends View {
         centerX = setX;
         centerY = setY;
         bubble.setBounds(centerX, centerY, centerX + diameter, centerY + diameter);
+    }
+    public double distance (float x1, float y1) {
+        return Math.sqrt(Math.pow((centerX - x1), 2) + Math.pow((centerY-y1), 2));
     }
     public int getXPos() {
         return storeX;
