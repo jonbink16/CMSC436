@@ -187,13 +187,13 @@ public class Database {
         }
     }
 
-    private HashSet<Bitmap> images = new HashSet<>();
+    private HashMap<String,Bitmap> images = new HashMap<>();
 
-    public void addImage(Bitmap bmp){
-        images.add(bmp);
+    public void addImage(String name, Bitmap bmp){
+        images.put(name,bmp);
     }
 
-    public HashSet<Bitmap> getImages(){
+    public HashMap<String,Bitmap> getImages(){
         return images;
     }
 

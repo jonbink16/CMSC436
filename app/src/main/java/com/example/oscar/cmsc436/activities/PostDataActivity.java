@@ -1,7 +1,6 @@
 package com.example.oscar.cmsc436.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
 
     private Database db = Database.getInstance();
     private Sheets sheet;
-    //private CMSC436Sheet group_sheet, com_sheet;
     private static final int LIB_ACCOUNT_NAME_REQUEST_CODE = 1001;
     private static final int LIB_AUTHORIZATION_REQUEST_CODE = 1002;
     private static final int LIB_PERMISSION_REQUEST_CODE = 1003;
@@ -40,8 +38,6 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         setContentView(R.layout.activity_post_data);
         sheet = new Sheets(this, this, getString(R.string.app_name),
                 getString(R.string.CMSC436Sheet_id_shared), getString(R.string.CMSC436Sheet_id_group));
-        //group_sheet = new CMSC436Sheet(this, getString(R.string.app_name), getString(R.string.CMSC436Sheet_id_group));
-        //com_sheet = new CMSC436Sheet(this, getString(R.string.app_name), getString(R.string.CMSC436Sheet_id_shared));
         (findViewById(R.id.postButton)).setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -86,8 +82,8 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
             System.out.println(o.getMps());
             sheet.writeData(Sheets.TestType.OUTDOOR_WALKING, ID, o.getMps());
         }
-        for(Bitmap b : db.getImages()){
-            sheet.uploadToDrive(getString(R.string.folder_name), "image", b);
+        for(String str : db.getImages().keySet()){
+            sheet.uploadToDrive(getString(R.string.folder_name), str, db.getImages().get(str));
         }
     }
 
@@ -121,7 +117,6 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         if(e != null){
             throw new RuntimeException(e);
         }
-        System.out.println("DONE");
     }
 
     @Override
