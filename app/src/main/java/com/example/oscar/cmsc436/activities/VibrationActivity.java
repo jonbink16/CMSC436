@@ -46,6 +46,9 @@ public class VibrationActivity extends AppCompatActivity {
                             float vib = (float)vNum/(float)10;
                             System.out.println(vib);
                             long[] pattern = genVibratorPattern(vib,10000);
+                            for(int i = 0; i < pattern.length; i++){
+                                System.out.println(pattern[i]);
+                            }
                             v.vibrate(pattern,-1);
                             Thread.sleep(10000);
                             vNum++;
@@ -117,6 +120,7 @@ public class VibrationActivity extends AppCompatActivity {
 
     public long[] genVibratorPattern( float intensity, long duration )
     {
+
         long count = 0;
         ArrayList<Long> longList = new ArrayList<>();
         longList.add((long)0);
@@ -143,5 +147,6 @@ public class VibrationActivity extends AppCompatActivity {
             l[i] = longList.get(i);
         }
         return l;
+
     }
 }

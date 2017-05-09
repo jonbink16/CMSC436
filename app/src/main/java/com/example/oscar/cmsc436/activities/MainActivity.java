@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SwayActivity.class));
     }
     public void outdoorWalkingTest(View view){startActivity(new Intent(this, OutdoorWalkActivity.class));}
-    public void memoryTest(View view){
-        Toast.makeText(this, "Unsupported", Toast.LENGTH_SHORT).show();}
+    public void memoryTest(View view){startActivity(new Intent(this, MemoryActivity.class));}
     public void vibrationTest(View view){startActivity(new Intent(this, VibrationActivity.class));}
 
     public void changeID(View view){
