@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.example.oscar.cmsc436.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VibrationActivity extends AppCompatActivity {
 
@@ -21,6 +20,7 @@ public class VibrationActivity extends AppCompatActivity {
     private Vibrator v;
     private int vNum;
     private Thread vibrateThread;
+    private static final long VIB_LENGTH = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,16 @@ public class VibrationActivity extends AppCompatActivity {
                     while(!interrupted) {
                         while(vNum < 10){
                             float vib = (float)vNum/(float)10;
-                            System.out.println(vib);
-                            long[] pattern = genVibratorPattern(vib,10000);
-                            for(int i = 0; i < pattern.length; i++){
-                                System.out.println(pattern[i]);
-                            }
+                            long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
+                                    /*{0, 50 ,50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+                                             100,100,100,100,100,100,100,100,100,100,100,100,100,
+                                              50,100, 50,100, 50,100, 50,100, 50,100, 50,100, 50,
+                                             50,100, 50,100, 50,100, 50,100, 50,100, 50,100, 50, 100,
+                                             25,100, 25,100, 25,100, 25,100, 25,100, 25,100, 25, 100};*/
+                            //genVibratorPattern(vib,VIB_LENGTH);
+
                             v.vibrate(pattern,-1);
-                            Thread.sleep(10000);
+                            Thread.sleep(VIB_LENGTH);
                             vNum++;
                             ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
@@ -72,7 +75,6 @@ public class VibrationActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         if(validDevice) {
             int eventaction = event.getAction();
-            System.out.println(event.toString());
             switch (eventaction) {
 
                 case MotionEvent.ACTION_DOWN:
@@ -100,15 +102,6 @@ public class VibrationActivity extends AppCompatActivity {
     private void startTest(){
         startedTest = true;
         vibrateThread.start();
-        /*System.out.println("hi");
-        while(!interrupted) {
-            while(vNum < 10){
-                long[] pattern = genVibratorPattern((vNum/10), 10);
-                v.vibrate(pattern, -1);
-                vNum++;
-            }
-        }*/
-
     }
 
     private void interrupted(){
@@ -120,27 +113,34 @@ public class VibrationActivity extends AppCompatActivity {
 
     public long[] genVibratorPattern( float intensity, long duration )
     {
-
+        //set the break value, if intensity is <= .3, it will be 100, otherwise, it will decrease
+        //set the vibration value, it will be intensity*75, which makes it grow
+        long BREAK = intensity <= .31 ? 100: (duration/100 - (long)(120*intensity)), VIB = (long)(75*intensity);
+        //if break goes below 0, just vibrate for the whole time
+        if(BREAK < 0) return new long[]{0,duration};
+        System.out.println("Intensity: " + intensity);
+        System.out.println("Break: " + BREAK + "\nVib: " + VIB);
         long count = 0;
         ArrayList<Long> longList = new ArrayList<>();
+        //start with a break of 0ms
         longList.add((long)0);
         while(count <= duration){
-            long toAdd = (long)(duration*intensity*intensity);
-            count+=toAdd*2;
+            //add the vibration, if it goes over the time, take it back and add the difference
+            count+=VIB;
             if(count >= duration){
-                count -= toAdd*2;
+                count -= VIB;
                 longList.add(duration-count);
                 break;
             }
-            longList.add(toAdd*2);
-
-            count+=toAdd/4;
+            longList.add(VIB);
+            //add the break, if it goes over the time, take it back and add the difference
+            count+=BREAK;
             if(count >= duration){
-                count -= toAdd/4;
+                count -= BREAK;
                 longList.add(duration-count);
                 break;
             }
-            longList.add(toAdd/4);
+            longList.add(BREAK);
         }
         long[] l = new long[longList.size()];
         for(int i = 0; i < l.length; i++){
