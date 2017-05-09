@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.example.oscar.cmsc436.activities.VibrationActivity">
 
 
     <TextView
+        android:id="@+id/vibrateDirections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Place your knuckle on the screen to begin. Say 'Yes' out loud when you are able to feel the vibration."/>
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:layout_below="@+id/vibrateDirections"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Level: 1"
+        android:id="@+id/vibrateLevelText"/>
+
+    <Button
+        android:layout_below="@id/vibrateLevelText"
+        android:id="@+id/vibrateYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YES"/>
+    <Button
+        android:layout_below="@+id/vibrateLevelText"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/vibrateNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO"/>
+</RelativeLayout>
