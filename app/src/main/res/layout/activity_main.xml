@@ -113,13 +113,33 @@
                 android:background="#FFFFFF" />
 
             <Button
+                android:text="Memory Test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/memoryButton"
+                android:onClick="memoryTest"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/outdoorWalkingTest"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:text="Vibration Test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/vibrationButton"
+                android:onClick="vibrationTest"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/memoryButton"
+                android:background="#FFFFFF" />
+
+            <Button
                 android:text="Change ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeButton"
                 android:onClick="changeID"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/outdoorWalkingTest"
+                android:layout_below="@+id/vibrationButton"
                 android:background="#FFFFFF" />
 
             <TextView

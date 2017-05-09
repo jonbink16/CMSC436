@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
 import com.example.oscar.cmsc436.data.Database;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SwayActivity.class));
     }
     public void outdoorWalkingTest(View view){startActivity(new Intent(this, OutdoorWalkActivity.class));}
+    public void memoryTest(View view){
+        Toast.makeText(this, "Unsupported", Toast.LENGTH_SHORT).show();}
+    public void vibrationTest(View view){startActivity(new Intent(this, VibrationActivity.class));}
 
     public void changeID(View view){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);

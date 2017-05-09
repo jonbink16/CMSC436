@@ -52,13 +52,6 @@ public class Database {
 
     private String curr_ID;
 
-    //keys for shared preference values
-    //sc_key is used to increment the filename of the screenshot bmp
-    //tset_key saves the set of times that screenshots were taken
-    private final String sc_key = "screenshot_count",
-                         tset_key = "time_set",
-                         tap_key = "tap_test_count";
-
     //has setPreferences() been called
     private boolean active1, active2;
 
@@ -81,9 +74,7 @@ public class Database {
     public void initialize(SharedPreferences preferences, MyContextWrapper context){
         prefs = preferences;
         active1 = true;
-        times = (HashSet<String>)prefs.getStringSet(tset_key,new HashSet<String>());
         this.context = context;
-        //readFromInternalStorage();
     }
 
     public String getID(){
