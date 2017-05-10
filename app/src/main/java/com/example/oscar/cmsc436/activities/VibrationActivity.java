@@ -215,8 +215,11 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
     protected void onPause() {
         super.onPause();
         h.removeCallbacks(vibrateThread);
-        //v.cancel();
-        //vibrateThread.interrupt();
+        v.cancel();
+        if (recognizer != null) {
+            recognizer.cancel();
+            recognizer.shutdown();
+        }
     }
 
     public long[] genVibratorPattern( float intensity, long duration )
@@ -272,9 +275,13 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         }
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        h.removeCallbacks(vibrateThread);
+        v.cancel();
         if (recognizer != null) {
             recognizer.cancel();
             recognizer.shutdown();
@@ -300,8 +307,10 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
             @Override
             protected void onPostExecute(Exception result) {
                 if (result != null) {
+                    Toast.makeText(getApplicationContext(), "Error. Failed to initialize voice input.",
+                            Toast.LENGTH_SHORT).show();
                     System.out.println(result.toString());
-                    System.err.println("FAILED");
+                    System.out.println("FAILED");
                 } else {
                     FINISHEDEXECUTE = true;
                 }
@@ -317,7 +326,7 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
                 .setAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
 
-                .setRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
+                //.setRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
 
                 .getRecognizer();
         recognizer.addListener(this);

@@ -21,60 +21,127 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class MemoryActivity extends AppCompatActivity{
 
     private ImageView current_symbol;
     private int symbols[];
     private Random random;
-    private int score = 0, currentSymbolNumber;
+    private int score = 0, currentSymbolNumber, totalNumQuestions = 0;
     private boolean testRunning = true;
     private CountDownTimer timer;
     private TextView scoreText;
     private static SpeechRecognizer speech = null;
     private static final String TAG = "MemoryTest";
     private Context context;
-    private int totalNumQuestions = 0;
-    private ArrayList<Integer> symbolsTested;
-    private ArrayList<String> timeStamps;
+    private HashMap<Integer, ArrayList<Long>> testResults;
+    private TreeMap<Integer, ArrayList<Long>> metric;
     private DateFormat df;
-    private Date date;
-    private String prevTime, currTime;
+    private Date prevTime, currTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
 
+        context = this;
         random = new Random();
         scoreText = (TextView) findViewById(R.id.score);
+        df =  new SimpleDateFormat("ss:SSS");
+
         current_symbol = (ImageView) findViewById(R.id.current_symbol);
         symbols = new int[]{R.drawable.symbol1, R.drawable.symbol2, R.drawable.symbol3,
                 R.drawable.symbol4, R.drawable.symbol5, R.drawable.symbol6,
                 R.drawable.symbol7, R.drawable.symbol8, R.drawable.symbol9};
-        symbolsTested = new ArrayList<>();
-        df =  new SimpleDateFormat("ss:SSS");
-        timeStamps = new ArrayList<>();
+
+        //metric = new HashMap<>();
+        metric = new TreeMap<>();
+        testResults = new HashMap<>();
+        for(int i = 1; i <= 9; i++)
+            testResults.put(i, new ArrayList<Long>());
 
         changeSymbol();
-        context = this;
         listen();
 
-        timer = new CountDownTimer(90000, 1000) {
+        timer = new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //do nothing for now
-
             }
             @Override
             public void onFinish() {
-                int numWrong = totalNumQuestions - score;
+                //metric of the number questions answered wrong.
+                //The -1 at the end accounts for the last symbol being displayed but not having
+                //time to click it
+                int numWrong = totalNumQuestions - score - 1;
                 scoreText.setText("Number Correct: " + score + "\nNumber Wrong: " + numWrong);
                 testRunning = false;
                 speech.destroy();
+
+                long reactionTimeSum = 0;
+                int numItems = 0;
+
+                testResultsToMetric();
+                ArrayList<Long> reactionAverages = new ArrayList<>();
+                for (Map.Entry<Integer,ArrayList<Long>> entry : metric.entrySet()) {
+                    reactionAverages.add(getAvg(entry.getValue()));
+                    reactionTimeSum += getSum(entry.getValue());
+                    numItems += entry.getValue().size();
+                }
+
+                //this metric measures average reaction speed for RIGHT answers
+                long avgReactionSpeed = reactionTimeSum / numItems;
+
+                //this is metric that measures learning rate
+                int slope = leastSquares(new ArrayList<Integer>(metric.keySet()), reactionAverages);
+
             }
         }.start();
+    }
+    //stores how many symbols we've seen x times
+    public void testResultsToMetric() {
+        for(int i = 1; i <= 9; i++) {
+            int numTimes = testResults.get(i).size();
+            if(metric.get(numTimes) == null && numTimes > 0)
+                metric.put(numTimes, new ArrayList<Long>());
+            if(numTimes > 0)
+                metric.get(numTimes).addAll(testResults.get(i));
+        }
+    }
+    public long getSum(ArrayList<Long> lst) {
+        long sum = 0;
+        for(long item: lst)
+            sum += item;
+        return sum;
+    }
+    public Long getAvg(ArrayList<Long> reactionTimes){
+        long sum = 0;
+        for(int i = 0; i < reactionTimes.size(); i++){
+            sum += reactionTimes.get(i);
+        }
+        return sum/reactionTimes.size();
+    }
+    public int leastSquares(List<Integer> xValues, List<Long> yValues) {
+        int sumX = 0, sumY = 0, sumXY = 0, sumXsquared = 0, sumYsquared = 0;
+        int n = xValues.size();
+        for(int i = 0; i < n; i++) {
+            sumX += xValues.get(i);
+            sumXsquared += (int) Math.pow((double) xValues.get(i), 2);
+            sumYsquared += (int) Math.pow((double) yValues.get(i), 2);
+            sumY += yValues.get(i);
+            sumXY = xValues.get(i) * ((int) (long) yValues.get(i));
+        }
+
+        int sXY = sumXY - ((sumX * sumY) / n);
+        int sXX = sumXsquared - (((int) Math.pow((double) sumX, 2)) / n);
+        //int sYY = sumYsquared - (((int) Math.pow((double) sumY, 2)) / n);
+        return sXY/sXX;
+
     }
     public void listen() {
         if (speech == null) {
@@ -91,27 +158,35 @@ public class MemoryActivity extends AppCompatActivity{
     }
     public void buttonClicked(View view) {
         if(testRunning) {
+            currTime = new Date();
+
+            //time difference is in milliseconds
+            long timeDiff = currTime.getTime() - prevTime.getTime();
+
+            //use the view ID to get the button clicked and get the number it corresponds to
             Button buttonClicked = (Button) findViewById(view.getId());
             int numClicked = Integer.parseInt((String) buttonClicked.getText());
-            if((numClicked - 1) == currentSymbolNumber)
+
+            //check if the button clicked corresponds to the current symbol displayed
+            if((numClicked - 1) == currentSymbolNumber) {
                 score++;
+                testResults.get(currentSymbolNumber + 1).add(timeDiff);
+            }
 
             scoreText.setText("Score: " + score);
             changeSymbol();
-            listen();
         }
     }
     public void changeSymbol() {
+        prevTime = new Date();
+
         totalNumQuestions++;
         int r = random.nextInt(9);
         current_symbol.setImageResource(symbols[r]);
         currentSymbolNumber = r;
 
-        prevTime = df.format(new Date());
-
-        //System.out.println("TIME CLICKED: " + df.format(new Date()));
-        //symbolsTested.add(currentSymbolNumber);
-        //timeStamps.add(df.format(new Date()));
+        //begin listening after we change the symbol
+        listen();
     }
     public void checkRecording(String wordInput) {
         int numberSpoken = -1;
@@ -137,11 +212,8 @@ public class MemoryActivity extends AppCompatActivity{
         if(numberSpoken == (currentSymbolNumber + 1)) {
             score++;
         }
-        int temp = currentSymbolNumber + 1;
-        System.out.println("Compared " + numberSpoken + " to " + temp);
         scoreText.setText("Score: " + score);
         changeSymbol();
-        listen();
     }
     @Override
     protected void onPause() {
@@ -150,7 +222,6 @@ public class MemoryActivity extends AppCompatActivity{
             speech.destroy();
             Log.i(TAG,"destroy");
         }
-
     }
     @Override
     public void onDestroy() {
@@ -162,63 +233,37 @@ public class MemoryActivity extends AppCompatActivity{
 
         public void onReadyForSpeech(Bundle params)
         {
-            Log.d(TAG, "onReadyForSpeech");
+            //Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-            Log.d(TAG, "onBeginningOfSpeech");
+            //Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
         {
-            Log.d(TAG, "onRmsChanged");
+            //Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer)
         {
-            Log.d(TAG, "onBufferReceived");
+            //Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech() {
-            Log.d(TAG, "onEndofSpeech");
+            //Log.d(TAG, "onEndofSpeech");
         }
         public void onError(int error) {
-            Log.d(TAG,  "error " +  error);
+            //Log.d(TAG,  "error " +  error);
         }
         public void onResults(Bundle results) {
-            String str = new String();
             ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for (int i = 0; i < data.size(); i++) {
-                str += data.get(i);
-            }
-            System.out.println(data.get(0));
             checkRecording(data.get(0));
         }
         public void onPartialResults(Bundle partialResults)
         {
-            Log.d(TAG, "onPartialResults");
+            //Log.d(TAG, "onPartialResults");
         }
         public void onEvent(int eventType, Bundle params)
         {
-            Log.d(TAG, "onEvent " + eventType);
+            //Log.d(TAG, "onEvent " + eventType);
         }
     }
 }
-//was used inside of buttonClicked function
-            /*int buttonClicked = view.getId();
-            if(buttonClicked == R.id.button1 && currentSymbolNumber == 0)
-                score++;
-            else if(buttonClicked == R.id.button2 && currentSymbolNumber == 1)
-                score++;
-            else if(buttonClicked == R.id.button3 && currentSymbolNumber == 2)
-                score++;
-            else if(buttonClicked == R.id.button4 && currentSymbolNumber == 3)
-                score++;
-            else if(buttonClicked == R.id.button5 && currentSymbolNumber == 4)
-                score++;
-            else if(buttonClicked == R.id.button6 && currentSymbolNumber == 5)
-                score++;
-            else if(buttonClicked == R.id.button7 && currentSymbolNumber == 6)
-                score++;
-            else if(buttonClicked == R.id.button8 && currentSymbolNumber == 7)
-                score++;
-            else if(buttonClicked == R.id.button9 && currentSymbolNumber == 8)
-                score++;*/
-

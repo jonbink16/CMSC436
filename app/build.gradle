@@ -37,7 +37,7 @@ dependencies {
         exclude group: 'com.google.code.findbugs'
     }
 
-    compile project(':sheets436-0.0.6-release')
+    compile project(':sheets436')
     compile project(":pocketsphinx-android-5prealpha-release")
     compile project(":models")
 
