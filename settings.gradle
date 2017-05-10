@@ -1,1 +1,1 @@
-include ':app', ':sheets436-0.0.5-release', ':sheets436-0.0.6-release'
+include ':app', ':sheets436-0.0.5-release', ':sheets436-0.0.6-release', ':pocketsphinx-android-5prealpha-release', ':models'

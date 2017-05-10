@@ -38,12 +38,17 @@ dependencies {
     }
 
     compile project(':sheets436-0.0.6-release')
+    compile project(":pocketsphinx-android-5prealpha-release")
+    compile project(":models")
+
+    ant.importBuild 'src/main/res/assets.xml'
+
 
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.android.gms:play-services-auth:10.2.1'
-    compile 'com.google.android.gms:play-services-drive:10.2.1'
-    compile 'com.google.android.gms:play-services-maps:10.2.1'
-    compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile 'com.google.android.gms:play-services-auth:10.2.4'
+    compile 'com.google.android.gms:play-services-drive:10.2.4'
+    compile 'com.google.android.gms:play-services-maps:10.2.4'
+    compile 'com.google.android.gms:play-services-location:10.2.4'
     testCompile 'junit:junit:4.12'
 }

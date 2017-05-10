@@ -1,10 +1,16 @@
 package com.example.oscar.cmsc436.activities;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Vibrator;
+
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +22,18 @@ import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.cmu.pocketsphinx.Assets;
+import edu.cmu.pocketsphinx.Hypothesis;
+import edu.cmu.pocketsphinx.RecognitionListener;
+import edu.cmu.pocketsphinx.SpeechRecognizer;
+import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 
-public class VibrationActivity extends AppCompatActivity {
+
+public class VibrationActivity extends AppCompatActivity implements RecognitionListener{
 
     private boolean interrupted, validDevice, startedTest;
     private Vibrator v;
@@ -27,9 +41,13 @@ public class VibrationActivity extends AppCompatActivity {
     private Thread vibrateThread;
     private static final long VIB_LENGTH = 10000, LEVELS = 8;
     private Button yesB, noB;
-    private boolean threadRunning;
+    private boolean threadRunning, FINISHEDEXECUTE, testDone, listening;
     Handler h;
     private long timeStart, timeEnd;
+    private static final String FELT_VIB = "yes";
+    private SpeechRecognizer recognizer;
+    private static final int PERM_REQUEST_REC_AUDIO = 1;
+    private static final int VSTART = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +85,9 @@ public class VibrationActivity extends AppCompatActivity {
 
         validDevice = true;
         interrupted = false;
-        vNum = 3;
+        vNum = VSTART;
         threadRunning = false;
+        listening = false;
 
         vibrateThread= new Thread(new Runnable() {
             public void run() {
@@ -98,46 +117,20 @@ public class VibrationActivity extends AppCompatActivity {
         });
         h = new Handler();
 
-        /*vibrateThread= new Thread(new Runnable() {
-            public void run() {
-                threadRunning = true;
-                try {
-                    while(!interrupted) {
-                        while(vNum < LEVELS) {
-                            long[] pattern = genVibratorPattern(VIB_LENGTH);
-                            System.out.println(vNum);
-                            v.vibrate(pattern, -1);
-                            Thread.sleep(VIB_LENGTH);
-                            v.cancel();
-                            vNum++;
-                            ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                            if(vNum != LEVELS) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        endLevel();
-                                    }
-                                });
-                            }
-
-                        }
-                    }
-                }catch (InterruptedException e){
-                    startedTest = false;
-                }
-                catch (Throwable t) {
-                    Log.i("Vibration", "Thread  exception "+t);
-                }
-                threadRunning = false;
-            }
-        });*/
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERM_REQUEST_REC_AUDIO);
+            return;
+        }
+        FINISHEDEXECUTE = false;
+        testDone = false;
+        runRecognizerSetup();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         System.out.println("GOGOGOGOGO");
-        if(validDevice && vNum < LEVELS) {
+        if(validDevice && vNum < LEVELS && FINISHEDEXECUTE && !testDone) {
             int eventaction = event.getAction();
             switch (eventaction) {
 
@@ -171,6 +164,10 @@ public class VibrationActivity extends AppCompatActivity {
     long l1 = 0, l2;
     private void startTest(){
         startedTest = true;
+        if(vNum == VSTART && !listening){
+            recognizer.startListening(FELT_VIB);
+            listening = true;
+        }
         if(state == 0 && vNum < LEVELS) {
             l2 = System.currentTimeMillis();
             double secs = (l2-l1)/1000;
@@ -195,7 +192,7 @@ public class VibrationActivity extends AppCompatActivity {
         //vibrateThread.interrupt();
         v.cancel();
         threadRunning = false;
-        if(vNum != LEVELS)
+        if(vNum != LEVELS && !testDone)
             Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
     }
 
@@ -209,6 +206,8 @@ public class VibrationActivity extends AppCompatActivity {
     }
 
     private void finishTest(){
+        testDone = true;
+        ((TextView)(findViewById(R.id.vibrateLevelText))).setText("FINISHED AT LEVEL: " + (vNum-VSTART+1));
         System.out.println("DATA TO BE SAVED: " + vNum);
     }
 
@@ -258,5 +257,127 @@ public class VibrationActivity extends AppCompatActivity {
         return l;
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERM_REQUEST_REC_AUDIO) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                runRecognizerSetup();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (recognizer != null) {
+            recognizer.cancel();
+            recognizer.shutdown();
+        }
+    }
+
+    private void runRecognizerSetup() {
+        // Recognizer initialization is a time-consuming and it involves IO,
+        // so we execute it in async task
+        new AsyncTask<Void, Void, Exception>() {
+            @Override
+            protected Exception doInBackground(Void... params) {
+                try {
+                    Assets assets = new Assets(VibrationActivity.this);
+                    File assetDir = assets.syncAssets();
+                    setupRecognizer(assetDir);
+                } catch (IOException e) {
+                    return e;
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Exception result) {
+                if (result != null) {
+                    System.out.println(result.toString());
+                    System.err.println("FAILED");
+                } else {
+                    FINISHEDEXECUTE = true;
+                }
+            }
+        }.execute();
+    }
+
+    private void setupRecognizer(File assetsDir) throws IOException {
+        // The recognizer can be configured to perform multiple searches
+        // of different kind and switch between them
+
+        recognizer = SpeechRecognizerSetup.defaultSetup()
+                .setAcousticModel(new File(assetsDir, "en-us-ptm"))
+                .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
+
+                .setRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
+
+                .getRecognizer();
+        recognizer.addListener(this);
+
+        File yesGrammar = new File(assetsDir, "yes.gram");
+        recognizer.addGrammarSearch(FELT_VIB, yesGrammar);
+
+    }
+
+
+
+    @Override
+    public void onBeginningOfSpeech() {
+
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+
+    }
+
+    @Override
+    public void onPartialResult(Hypothesis hypothesis) {
+        if(hypothesis == null) return;
+        if(hypothesis.getHypstr().equals(FELT_VIB)){
+            v.cancel();
+            if(!testDone)
+                finishTest();
+            interrupted();
+            if (recognizer != null) {
+                recognizer.cancel();
+                recognizer.shutdown();
+            }
+        }
+    }
+
+    @Override
+    public void onResult(Hypothesis hypothesis) {
+        if(hypothesis == null) return;
+        if(hypothesis.getHypstr().equals(FELT_VIB)){
+            v.cancel();
+            if(!testDone)
+                finishTest();
+            interrupted();
+            if (recognizer != null) {
+                recognizer.cancel();
+                recognizer.shutdown();
+            }
+        }
+    }
+
+    @Override
+    public void onError(Exception e) {
+        System.err.println(e.toString());
+    }
+
+    @Override
+    public void onTimeout() {
+
+    }
+
 
 }
