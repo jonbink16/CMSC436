@@ -25,9 +25,10 @@ public class VibrationActivity extends AppCompatActivity {
     private Vibrator v;
     private int vNum;
     private Thread vibrateThread;
-    private static final long VIB_LENGTH = 10000, LEVELS = 10;
+    private static final long VIB_LENGTH = 10000, LEVELS = 8;
     private Button yesB, noB;
     private boolean threadRunning;
+    private long timeStart, timeEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,10 @@ public class VibrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vibration);
         v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         if(!v.hasVibrator()){
-            validDevice = false;
+            //validDevice = false;
             Toast.makeText(getApplicationContext(), "Your device does not support vibration or an error occurred. " +
                     "Please try a different device or restarting the application.", Toast.LENGTH_SHORT).show();
-            return;
+            //return;
         }
         yesB = (Button)findViewById(R.id.vibrateYes);
         yesB.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +66,48 @@ public class VibrationActivity extends AppCompatActivity {
 
         validDevice = true;
         interrupted = false;
-        vNum = 1;
-        BREAK = 100;
-        VIB = 5;
+        vNum = 3;
         threadRunning = false;
         vibrateThread= new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while(!interrupted) {
+                        while(vNum < LEVELS){
+                            timeStart = System.currentTimeMillis();
+                            float vib = (float)vNum/(float)10;
+                            long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
+                            v.vibrate(pattern,-1);
+                            int c = 0;
+                            while(!interrupted && c < 10) {
+                                Thread.sleep(VIB_LENGTH/10);
+                                c++;
+                            }
+                            if(!interrupted) {
+                                vNum++;
+                                ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                if (vNum != LEVELS) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            endLevel();
+                                        }
+                                    });
+                                } else {
+                                    finishTest();
+                                }
+                            }
+                        }
+                    }
+                }catch (InterruptedException e){
+                    startedTest = false;
+                }
+                catch (Throwable t) {
+                    Log.i("Vibration", "Thread  exception "+t);
+                }
+            }
+        });
+        /*vibrateThread= new Thread(new Runnable() {
             public void run() {
                 threadRunning = true;
                 try {
@@ -102,9 +140,7 @@ public class VibrationActivity extends AppCompatActivity {
                 }
                 threadRunning = false;
             }
-        });
-
-
+        });*/
     }
 
     @Override
@@ -120,8 +156,8 @@ public class VibrationActivity extends AppCompatActivity {
 
                 case MotionEvent.ACTION_MOVE:
                     if(!startedTest) {
-                        startTest();
                         interrupted = false;
+                        startTest();
                     }
                     break;
 
@@ -138,21 +174,24 @@ public class VibrationActivity extends AppCompatActivity {
 
     private void startTest(){
         startedTest = true;
-        if(!threadRunning)
-        vibrateThread.start();
+        if(!threadRunning) {
+            vibrateThread.start();
+        }
     }
 
     private void interrupted(){
         interrupted = true;
         startedTest = false;
-        vibrateThread.interrupt();
         v.cancel();
-        Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
+        vibrateThread.interrupt();
+        threadRunning = false;
+        if(vNum != LEVELS)
+            Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
     }
 
     private void endLevel(){
         //interrupted = true;
-        ((TextView)(findViewById(R.id.vibrateLevelText))).setText("Level: " + vNum);
+        ((TextView)(findViewById(R.id.vibrateLevelText))).setText("Level: " + (vNum-2));
         //yesB.setVisibility(Button.VISIBLE);
         //noB.setVisibility(Button.VISIBLE);
         //yesB.setClickable(true);
@@ -170,13 +209,14 @@ public class VibrationActivity extends AppCompatActivity {
         vibrateThread.interrupt();
     }
 
-    private long BREAK, VIB;
-    public long[] genVibratorPattern( long duration )
+    public long[] genVibratorPattern( float intensity, long duration )
     {
         //set the break value, if intensity is <= .3, it will be 100, otherwise, it will decrease
         //set the vibration value, it will be intensity*75, which makes it grow
-
-        //System.out.println("Intensity: " + intensity);
+        long BREAK = intensity <= .31 ? 100: (duration/100 - (long)(120*intensity)), VIB = (long)(75*intensity);
+        //if break goes below 0, just vibrate for the whole time
+        if(BREAK < 0) return new long[]{0,duration};
+        System.out.println("Intensity: " + intensity);
         System.out.println("Break: " + BREAK + "\nVib: " + VIB);
         long count = 0;
         ArrayList<Long> longList = new ArrayList<>();
@@ -184,7 +224,6 @@ public class VibrationActivity extends AppCompatActivity {
         longList.add((long)0);
         while(count <= duration){
             //add the vibration, if it goes over the time, take it back and add the difference
-
             count+=VIB;
             if(count >= duration){
                 count -= VIB;
@@ -205,9 +244,8 @@ public class VibrationActivity extends AppCompatActivity {
         for(int i = 0; i < l.length; i++){
             l[i] = longList.get(i);
         }
-        VIB+=5;
-        BREAK-=5;
         return l;
 
     }
+
 }

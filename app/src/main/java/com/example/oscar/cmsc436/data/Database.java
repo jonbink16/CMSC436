@@ -204,6 +204,13 @@ public class Database {
         }
     }
 
+    public void clearID(String ID){
+        if(isActive()){
+            if(hashStore.containsKey(ID))
+                hashStore.remove(ID);
+        }
+    }
+
     private HashMap<String,Bitmap> images = new HashMap<>();
 
     public void addImage(String name, Bitmap bmp){
