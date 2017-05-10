@@ -379,7 +379,7 @@ public class Sheets implements GoogleApiClient.ConnectionCallbacks, GoogleApiCli
         SWAY_CLOSED("'Swaying Test (Legs closed eyes closed)'"),
         INDOOR_WALKING("'Indoor Walking Test'"),
         OUTDOOR_WALKING("'Outdoor Walking Test'"),
-        MEMORY("'Memory Test'"),
+        SYMBOL("'Symbol Test'"),
         VIBRATION("'Vibration Test'");
 
         private final String id;

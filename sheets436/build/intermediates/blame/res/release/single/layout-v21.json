@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/layout-v21/notification_template_custom_big.xml"
+    }
+]
