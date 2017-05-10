@@ -3,6 +3,7 @@ package com.example.oscar.cmsc436.activities;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +16,8 @@ import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
 
 public class VibrationActivity extends AppCompatActivity {
 
@@ -28,6 +28,7 @@ public class VibrationActivity extends AppCompatActivity {
     private static final long VIB_LENGTH = 10000, LEVELS = 8;
     private Button yesB, noB;
     private boolean threadRunning;
+    Handler h;
     private long timeStart, timeEnd;
 
     @Override
@@ -68,45 +69,31 @@ public class VibrationActivity extends AppCompatActivity {
         interrupted = false;
         vNum = 3;
         threadRunning = false;
+
         vibrateThread= new Thread(new Runnable() {
             public void run() {
                 try {
-                    while(!interrupted) {
-                        while(vNum < LEVELS){
-                            timeStart = System.currentTimeMillis();
-                            float vib = (float)vNum/(float)10;
-                            long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
-                            v.vibrate(pattern,-1);
-                            int c = 0;
-                            while(!interrupted && c < 10) {
-                                Thread.sleep(VIB_LENGTH/10);
-                                c++;
-                            }
-                            if(!interrupted) {
-                                vNum++;
-                                ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                                if (vNum != LEVELS) {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            endLevel();
-                                        }
-                                    });
-                                } else {
-                                    finishTest();
-                                }
-                            }
-                        }
-                    }
-                }catch (InterruptedException e){
+                    vNum++;
+                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                     startedTest = false;
+                    if (vNum != LEVELS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endLevel();
+                            }
+                        });
+                    }
                 }
                 catch (Throwable t) {
                     Log.i("Vibration", "Thread  exception "+t);
                 }
             }
+
         });
+        h = new Handler();
+
         /*vibrateThread= new Thread(new Runnable() {
             public void run() {
                 threadRunning = true;
@@ -145,12 +132,15 @@ public class VibrationActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(validDevice) {
+        if(validDevice && vNum < LEVELS) {
             int eventaction = event.getAction();
             switch (eventaction) {
 
                 case MotionEvent.ACTION_DOWN:
-
+                    if(!startedTest) {
+                        interrupted = false;
+                        startTest();
+                    }
 
                     break;
 
@@ -162,6 +152,7 @@ public class VibrationActivity extends AppCompatActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
+                    System.out.println("interr");
                     if(!interrupted) {
                         interrupted();
                     }
@@ -171,19 +162,26 @@ public class VibrationActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    int state = 0;
     private void startTest(){
         startedTest = true;
-        if(!threadRunning) {
-            vibrateThread.start();
+        if(state == 0 && !threadRunning && vNum < LEVELS) {
+            float vib = (float)vNum/(float)10;
+            long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
+            v.vibrate(pattern,-1);
+            System.out.println(interrupted);
+            h.postDelayed(vibrateThread, VIB_LENGTH);
+        }else{
+            finishTest();
         }
     }
 
     private void interrupted(){
         interrupted = true;
         startedTest = false;
+        h.removeCallbacks(vibrateThread);
+        //vibrateThread.interrupt();
         v.cancel();
-        vibrateThread.interrupt();
         threadRunning = false;
         if(vNum != LEVELS)
             Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
@@ -205,8 +203,9 @@ public class VibrationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        v.cancel();
-        vibrateThread.interrupt();
+        h.removeCallbacks(vibrateThread);
+        //v.cancel();
+        //vibrateThread.interrupt();
     }
 
     public long[] genVibratorPattern( float intensity, long duration )
