@@ -102,7 +102,7 @@ public class MemoryActivity extends AppCompatActivity{
                 //this is metric that measures learning rate (in milliseconds)
                 int learningRate = leastSquares(new ArrayList<Integer>(metric.keySet()), reactionAverages);
 
-                Database.getInstance().addMemoryTest(new MemoryTest(score, numWrong, avgReactionSpeed, learningRate, new Date()));
+                Database.getInstance().addMemoryTest(new MemoryTest(testResults, score, numWrong, avgReactionSpeed, learningRate, new Date()));
 
             }
         }.start();
