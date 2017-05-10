@@ -74,18 +74,21 @@ public class VibrationActivity extends AppCompatActivity {
                         while(vNum < LEVELS) {
                             long[] pattern = genVibratorPattern(VIB_LENGTH);
                             System.out.println(vNum);
-                            v.cancel();
                             v.vibrate(pattern, -1);
                             Thread.sleep(VIB_LENGTH);
+                            v.cancel();
                             vNum++;
                             ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    endLevel();
-                                }
-                            });
+                            if(vNum != LEVELS) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        endLevel();
+                                    }
+                                });
+                            }
+
                         }
                     }
                 }catch (InterruptedException e){

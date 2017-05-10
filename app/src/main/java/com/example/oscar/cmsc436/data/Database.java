@@ -7,9 +7,11 @@ import android.graphics.Bitmap;
 import com.example.oscar.cmsc436.data.tests.ArmTest;
 import com.example.oscar.cmsc436.data.tests.BalloonTest;
 import com.example.oscar.cmsc436.data.tests.LevelTest;
+import com.example.oscar.cmsc436.data.tests.MemoryTest;
 import com.example.oscar.cmsc436.data.tests.OutdoorWalkTest;
 import com.example.oscar.cmsc436.data.tests.SpiralTest;
 import com.example.oscar.cmsc436.data.tests.TapTest;
+import com.example.oscar.cmsc436.data.tests.VibrateTest;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -178,6 +180,30 @@ public class Database {
         }
     }
 
+    public void addVibrateTest(VibrateTest t){
+        if(isActive()) {
+
+            if (!hashStore.containsKey(curr_ID)) {
+                hashStore.put(curr_ID, new DataStore());
+            }
+
+            hashStore.get(curr_ID).vibrateStore.add(t);
+
+        }
+    }
+
+    public void addMemoryTest(MemoryTest t){
+        if(isActive()) {
+
+            if (!hashStore.containsKey(curr_ID)) {
+                hashStore.put(curr_ID, new DataStore());
+            }
+
+            hashStore.get(curr_ID).memoryStore.add(t);
+
+        }
+    }
+
     private HashMap<String,Bitmap> images = new HashMap<>();
 
     public void addImage(String name, Bitmap bmp){
@@ -200,6 +226,8 @@ public class Database {
         private ArrayList<SpiralTest> spiralStore;
         private ArrayList<LevelTest> levelStore;
         private ArrayList<OutdoorWalkTest> outdoorWalkStore;
+        private ArrayList<VibrateTest> vibrateStore;
+        private ArrayList<MemoryTest> memoryStore;
         //Data Structures for Spiral and Bubble
 
         private DataStore(){
@@ -209,6 +237,8 @@ public class Database {
             spiralStore = new ArrayList<>();
             levelStore = new ArrayList<>();
             outdoorWalkStore = new ArrayList<>();
+            vibrateStore = new ArrayList<>();
+            memoryStore = new ArrayList<>();
             //initialize other structures
         }
 
@@ -233,6 +263,11 @@ public class Database {
         }
 
         public ArrayList<OutdoorWalkTest> getOutdoorWalkStore() { return outdoorWalkStore; }
+
+        public ArrayList<VibrateTest> getVibrateStore() { return vibrateStore; }
+
+        public ArrayList<MemoryTest> getMemoryStore() { return memoryStore; }
+
 
     }
 

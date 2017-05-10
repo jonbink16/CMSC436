@@ -10,9 +10,11 @@ import com.example.oscar.cmsc436.R;
 import com.example.oscar.cmsc436.data.Database;
 import com.example.oscar.cmsc436.data.tests.BalloonTest;
 import com.example.oscar.cmsc436.data.tests.LevelTest;
+import com.example.oscar.cmsc436.data.tests.MemoryTest;
 import com.example.oscar.cmsc436.data.tests.OutdoorWalkTest;
 import com.example.oscar.cmsc436.data.tests.SpiralTest;
 import com.example.oscar.cmsc436.data.tests.TapTest;
+import com.example.oscar.cmsc436.data.tests.VibrateTest;
 
 
 import java.util.HashMap;
@@ -81,6 +83,12 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         for(OutdoorWalkTest o : hashStore.get(ID).getOutdoorWalkStore()){
             System.out.println(o.getMps());
             sheet.writeData(Sheets.TestType.OUTDOOR_WALKING, ID, o.getMps());
+        }
+        for(MemoryTest m : hashStore.get(ID).getMemoryStore()){
+            //add memory test
+        }
+        for(VibrateTest v : hashStore.get(ID).getVibrateStore()){
+            //add vibrate test
         }
         for(String str : db.getImages().keySet()){
             sheet.uploadToDrive(getString(R.string.folder_name), str, db.getImages().get(str));
