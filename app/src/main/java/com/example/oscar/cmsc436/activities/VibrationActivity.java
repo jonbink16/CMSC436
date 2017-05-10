@@ -77,6 +77,7 @@ public class VibrationActivity extends AppCompatActivity {
                     ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
                     toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                     startedTest = false;
+
                     if (vNum != LEVELS) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -84,6 +85,9 @@ public class VibrationActivity extends AppCompatActivity {
                                 endLevel();
                             }
                         });
+                    }
+                    if(!interrupted && !startedTest){
+                        startTest();
                     }
                 }
                 catch (Throwable t) {
@@ -132,6 +136,7 @@ public class VibrationActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        System.out.println("GOGOGOGOGO");
         if(validDevice && vNum < LEVELS) {
             int eventaction = event.getAction();
             switch (eventaction) {
@@ -163,14 +168,21 @@ public class VibrationActivity extends AppCompatActivity {
         return false;
     }
     int state = 0;
+    long l1 = 0, l2;
     private void startTest(){
         startedTest = true;
-        if(state == 0 && !threadRunning && vNum < LEVELS) {
+        if(state == 0 && vNum < LEVELS) {
+            l2 = System.currentTimeMillis();
+            double secs = (l2-l1)/1000;
+            System.out.println(secs);
             float vib = (float)vNum/(float)10;
             long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
             v.vibrate(pattern,-1);
             System.out.println(interrupted);
+
+            l1 = System.currentTimeMillis();
             h.postDelayed(vibrateThread, VIB_LENGTH);
+
         }else{
             finishTest();
         }
