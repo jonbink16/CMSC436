@@ -30,6 +30,9 @@ public class MemoryTest {
     public int getLearningRate() {
         return learningRate;
     }
+    public float[] getRawData(){
+        return new float[]{numCorrect, numWrong, avgReactionSpeed, learningRate};
+    }
     public String toString() {
         return date + " : " + numCorrect + ":" + numWrong + ":" + avgReactionSpeed + ":" + learningRate;
     }

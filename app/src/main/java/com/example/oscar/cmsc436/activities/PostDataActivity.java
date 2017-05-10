@@ -91,7 +91,8 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
             sheet.writeData(Sheets.TestType.OUTDOOR_WALKING, ID, o.getMps());
         }
         for(MemoryTest m : hashStore.get(ID).getMemoryStore()){
-
+            sheet.writeData(Sheets.TestType.SYMBOL, ID, m.getLearningRate());
+            sheet.writeTrials(Sheets.TestType.SYMBOL, ID, m.getRawData());
         }
         for(VibrateTest v : hashStore.get(ID).getVibrateStore()){
             sheet.writeData(Sheets.TestType.VIBRATION, ID, v.getLevel());
