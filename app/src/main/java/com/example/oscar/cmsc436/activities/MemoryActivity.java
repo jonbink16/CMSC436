@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.oscar.cmsc436.R;
+import com.example.oscar.cmsc436.data.Database;
+import com.example.oscar.cmsc436.data.tests.MemoryTest;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -97,8 +99,10 @@ public class MemoryActivity extends AppCompatActivity{
                 //this metric measures average reaction speed for RIGHT answers
                 long avgReactionSpeed = reactionTimeSum / numItems;
 
-                //this is metric that measures learning rate
-                int slope = leastSquares(new ArrayList<Integer>(metric.keySet()), reactionAverages);
+                //this is metric that measures learning rate (in milliseconds)
+                int learningRate = leastSquares(new ArrayList<Integer>(metric.keySet()), reactionAverages);
+
+                Database.getInstance().addMemoryTest(new MemoryTest(score, numWrong, avgReactionSpeed, learningRate, new Date()));
 
             }
         }.start();
