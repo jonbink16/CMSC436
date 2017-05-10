@@ -11,8 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/models" />
             <option value="$PROJECT_DIR$/pocketsphinx-android-5prealpha-release" />
-            <option value="$PROJECT_DIR$/sheets436-0.0.5-release" />
-            <option value="$PROJECT_DIR$/sheets436-0.0.6-release" />
+            <option value="$PROJECT_DIR$/sheets436" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
