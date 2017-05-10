@@ -27,6 +27,7 @@ public class VibrationActivity extends AppCompatActivity {
     private Thread vibrateThread;
     private static final long VIB_LENGTH = 10000, LEVELS = 10;
     private Button yesB, noB;
+    private boolean threadRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +68,10 @@ public class VibrationActivity extends AppCompatActivity {
         vNum = 1;
         BREAK = 100;
         VIB = 5;
+        threadRunning = false;
         vibrateThread= new Thread(new Runnable() {
             public void run() {
+                threadRunning = true;
                 try {
                     while(!interrupted) {
                         while(vNum < LEVELS) {
@@ -97,6 +100,7 @@ public class VibrationActivity extends AppCompatActivity {
                 catch (Throwable t) {
                     Log.i("Vibration", "Thread  exception "+t);
                 }
+                threadRunning = false;
             }
         });
 
@@ -134,6 +138,7 @@ public class VibrationActivity extends AppCompatActivity {
 
     private void startTest(){
         startedTest = true;
+        if(!threadRunning)
         vibrateThread.start();
     }
 
