@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
+import com.example.oscar.cmsc436.data.Database;
+import com.example.oscar.cmsc436.data.tests.VibrateTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
 
     private boolean interrupted, validDevice, startedTest;
     private Vibrator v;
-    private int vNum;
+    private int vNum, timesLifted;
     private Thread vibrateThread;
     private static final long VIB_LENGTH = 10000, LEVELS = 8;
     private Button yesB, noB;
@@ -86,6 +88,7 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         validDevice = true;
         interrupted = false;
         vNum = VSTART;
+        timesLifted = 0;
         threadRunning = false;
         listening = false;
 
@@ -129,7 +132,6 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        System.out.println("GOGOGOGOGO");
         if(validDevice && vNum < LEVELS && FINISHEDEXECUTE && !testDone) {
             int eventaction = event.getAction();
             switch (eventaction) {
@@ -150,7 +152,6 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    System.out.println("interr");
                     if(!interrupted) {
                         interrupted();
                     }
@@ -166,17 +167,13 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         startedTest = true;
         if(vNum == VSTART && !listening){
             recognizer.startListening(FELT_VIB);
+            timeStart = System.currentTimeMillis();
             listening = true;
         }
         if(state == 0 && vNum < LEVELS) {
-            l2 = System.currentTimeMillis();
-            double secs = (l2-l1)/1000;
-            System.out.println(secs);
             float vib = (float)vNum/(float)10;
             long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
             v.vibrate(pattern,-1);
-            System.out.println(interrupted);
-
             l1 = System.currentTimeMillis();
             h.postDelayed(vibrateThread, VIB_LENGTH);
 
@@ -192,23 +189,24 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         //vibrateThread.interrupt();
         v.cancel();
         threadRunning = false;
-        if(vNum != LEVELS && !testDone)
+        if(vNum != LEVELS && !testDone) {
             Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
+            timesLifted++;
+        }
     }
 
     private void endLevel(){
-        //interrupted = true;
         ((TextView)(findViewById(R.id.vibrateLevelText))).setText("Level: " + (vNum-2));
-        //yesB.setVisibility(Button.VISIBLE);
-        //noB.setVisibility(Button.VISIBLE);
-        //yesB.setClickable(true);
-        //noB.setClickable(true);
     }
 
     private void finishTest(){
+        timeEnd = System.currentTimeMillis();
         testDone = true;
         ((TextView)(findViewById(R.id.vibrateLevelText))).setText("FINISHED AT LEVEL: " + (vNum-VSTART+1));
-        System.out.println("DATA TO BE SAVED: " + vNum);
+        int level = vNum - VSTART + 1;
+        double totalTime = (timeEnd-timeStart)/1000;
+        System.out.println("Level: " + level + "\nTime: " + totalTime + "\nLifted: " + timesLifted);
+        Database.getInstance().addVibrateTest(new VibrateTest(level, totalTime, timesLifted));
     }
 
     @Override

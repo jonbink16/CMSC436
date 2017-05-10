@@ -6,12 +6,13 @@ package com.example.oscar.cmsc436.data.tests;
 
 public class VibrateTest {
 
-    private int level;
+    private int level, timesLifted;
     private double duration;
 
-    public VibrateTest(int level, double duration){
+    public VibrateTest(int level, double duration, int timesLifted){
         this.level = level;
         this.duration = duration;
+        this.timesLifted = timesLifted;
     }
 
     public int getLevel(){
@@ -20,5 +21,9 @@ public class VibrateTest {
 
     public double getDuration(){
         return duration;
+    }
+
+    public float[] getRawData(){
+        return new float[]{level, (float)duration, timesLifted};
     }
 }

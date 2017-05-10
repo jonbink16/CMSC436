@@ -89,7 +89,7 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         }
         for(VibrateTest v : hashStore.get(ID).getVibrateStore()){
             sheet.writeData(Sheets.TestType.VIBRATION, ID, v.getLevel());
-
+            sheet.writeTrials(Sheets.TestType.VIBRATION, ID, v.getRawData());
         }
         for(String str : db.getImages().keySet()){
             sheet.uploadToDrive(getString(R.string.folder_name), str, db.getImages().get(str));
