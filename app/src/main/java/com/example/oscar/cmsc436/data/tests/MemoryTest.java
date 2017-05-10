@@ -2,20 +2,21 @@ package com.example.oscar.cmsc436.data.tests;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  * Created by jonbink on 5/9/17.
  */
 
 public class MemoryTest {
-    private TreeMap<Integer, ArrayList<Long>> testResults;
+    private HashMap<Integer, ArrayList<Long>> testResults;
     private int numCorrect, numWrong, learningRate;
     private float avgReactionSpeed;
     private Date date;
 
-    public MemoryTest(TreeMap<Integer,ArrayList<Long>> testResults, int numCorrect, int numWrong, float avgReactionSpeed, int learningRate, Date date){
-        this.testResults = new TreeMap<Integer, ArrayList<Long>>(testResults);
+    public MemoryTest(HashMap<Integer,ArrayList<Long>> testResults, int numCorrect, int numWrong, float avgReactionSpeed, int learningRate, Date date){
+        this.testResults = new HashMap<Integer, ArrayList<Long>>();
+        this.testResults.putAll(testResults);
         this.numCorrect = numCorrect;
         this.numWrong = numWrong;
         this.avgReactionSpeed = avgReactionSpeed;
