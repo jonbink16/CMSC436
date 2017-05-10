@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.oscar.cmsc436.R;
 import com.example.oscar.cmsc436.data.Database;
@@ -32,7 +33,7 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
     private static final int LIB_PLAY_SERVICES_REQUEST_CODE = 1004;
     private static final int LIB_CONNECTION_REQUEST_CODE = 1005;
 
-
+    private String ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +49,24 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
             }
 
         });
+        ID = db.getID();
+        if(!Database.getInstance().getHashStore().containsKey(ID) || Database.getInstance().getHashStore().get(ID).isEmpty()){
+            findViewById(R.id.postButton).setClickable(false);
+            findViewById(R.id.postButton).setEnabled(false);
+            Toast.makeText(getApplicationContext(), "Please finish some tests while entering a valid ID",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
 
     public void postDataToSpreadSheet(){
-        String ID = db.getID();
+
         HashMap<String,Database.DataStore> hashStore = db.getHashStore();
         for(TapTest t : hashStore.get(ID).getTapStore()){
-
             sheet.writeTrials(Sheets.TestType.LH_TAP, ID, t.getLeft());
             sheet.writeData(Sheets.TestType.LH_TAP, ID, t.getLtAvg());
             sheet.writeTrials(Sheets.TestType.RH_TAP, ID, t.getRight());
             sheet.writeData(Sheets.TestType.RH_TAP, ID, t.getRtAvg());
-
         }
         for(SpiralTest s : hashStore.get(ID).getSpiralStore()){
             sheet.writeData(Sheets.TestType.LH_SPIRAL, ID, s.getLeftMetric());
@@ -85,7 +91,7 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
             sheet.writeData(Sheets.TestType.OUTDOOR_WALKING, ID, o.getMps());
         }
         for(MemoryTest m : hashStore.get(ID).getMemoryStore()){
-            //add memory test
+
         }
         for(VibrateTest v : hashStore.get(ID).getVibrateStore()){
             sheet.writeData(Sheets.TestType.VIBRATION, ID, v.getLevel());
@@ -93,6 +99,12 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
         }
         for(String str : db.getImages().keySet()){
             sheet.uploadToDrive(getString(R.string.folder_name), str, db.getImages().get(str));
+        }
+        //clear data so you cannot upload twice
+        Database.getInstance().clearID(ID);
+        if(!Database.getInstance().getHashStore().containsKey(ID) || Database.getInstance().getHashStore().get(ID).isEmpty()) {
+            findViewById(R.id.postButton).setClickable(false);
+            findViewById(R.id.postButton).setEnabled(false);
         }
     }
 

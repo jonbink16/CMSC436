@@ -42,8 +42,7 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
     private int vNum, timesLifted;
     private Thread vibrateThread;
     private static final long VIB_LENGTH = 10000, LEVELS = 8;
-    private Button yesB, noB;
-    private boolean threadRunning, FINISHEDEXECUTE, testDone, listening;
+    private boolean FINISHEDEXECUTE, testDone, listening;
     Handler h;
     private long timeStart, timeEnd;
     private static final String FELT_VIB = "yes";
@@ -62,34 +61,11 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
                     "Please try a different device or restarting the application.", Toast.LENGTH_SHORT).show();
             //return;
         }
-        yesB = (Button)findViewById(R.id.vibrateYes);
-        yesB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishTest();
-            }
-        });
-        noB = (Button)findViewById(R.id.vibrateNo);
-        noB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                yesB.setVisibility(Button.INVISIBLE);
-                noB.setVisibility(Button.INVISIBLE);
-                yesB.setClickable(false);
-                noB.setClickable(false);
-                startedTest = false;
-            }
-        });
-        yesB.setVisibility(Button.INVISIBLE);
-        noB.setVisibility(Button.INVISIBLE);
-        yesB.setClickable(false);
-        noB.setClickable(false);
 
         validDevice = true;
         interrupted = false;
         vNum = VSTART;
         timesLifted = 0;
-        threadRunning = false;
         listening = false;
 
         vibrateThread= new Thread(new Runnable() {
@@ -188,7 +164,6 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         h.removeCallbacks(vibrateThread);
         //vibrateThread.interrupt();
         v.cancel();
-        threadRunning = false;
         if(vNum != LEVELS && !testDone) {
             Toast.makeText(getApplicationContext(), "Please keep touching the screen.", Toast.LENGTH_SHORT).show();
             timesLifted++;

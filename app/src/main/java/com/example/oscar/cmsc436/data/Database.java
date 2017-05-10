@@ -124,7 +124,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).tapStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -140,7 +140,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).spiralStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -152,7 +152,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).levelStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -164,7 +164,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).balloonStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -176,7 +176,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).outdoorWalkStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -188,7 +188,7 @@ public class Database {
             }
 
             hashStore.get(curr_ID).vibrateStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -198,9 +198,8 @@ public class Database {
             if (!hashStore.containsKey(curr_ID)) {
                 hashStore.put(curr_ID, new DataStore());
             }
-
             hashStore.get(curr_ID).memoryStore.add(t);
-
+            hashStore.get(curr_ID).empty = false;
         }
     }
 
@@ -235,6 +234,7 @@ public class Database {
         private ArrayList<OutdoorWalkTest> outdoorWalkStore;
         private ArrayList<VibrateTest> vibrateStore;
         private ArrayList<MemoryTest> memoryStore;
+        private boolean empty;
         //Data Structures for Spiral and Bubble
 
         private DataStore(){
@@ -246,6 +246,7 @@ public class Database {
             outdoorWalkStore = new ArrayList<>();
             vibrateStore = new ArrayList<>();
             memoryStore = new ArrayList<>();
+            empty = true;
             //initialize other structures
         }
 
@@ -276,6 +277,9 @@ public class Database {
         public ArrayList<MemoryTest> getMemoryStore() { return memoryStore; }
 
 
+        public boolean isEmpty(){
+            return empty;
+        }
     }
 
 }
