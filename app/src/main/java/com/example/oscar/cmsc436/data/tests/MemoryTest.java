@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class MemoryTest {
     private int numCorrect, numWrong, learningRate;
-    private long avgReactionSpeed;
+    private float avgReactionSpeed;
     private Date date;
 
-    public MemoryTest(int numCorrect, int numWrong, long avgReactionSpeed, int learningRate, Date date){
+    public MemoryTest(int numCorrect, int numWrong, float avgReactionSpeed, int learningRate, Date date){
         this.numCorrect = numCorrect;
         this.numWrong = numWrong;
         this.avgReactionSpeed = avgReactionSpeed;
@@ -24,7 +24,7 @@ public class MemoryTest {
     public int getNumWrong() {
         return numWrong;
     }
-    public long getAvgReactionSpeed() {
+    public float getAvgReactionSpeed() {
         return avgReactionSpeed;
     }
     public int getLearningRate() {

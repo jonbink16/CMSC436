@@ -97,7 +97,7 @@ public class MemoryActivity extends AppCompatActivity{
                 }
 
                 //this metric measures average reaction speed for RIGHT answers
-                long avgReactionSpeed = reactionTimeSum / numItems;
+                float avgReactionSpeed = reactionTimeSum / numItems;
 
                 //this is metric that measures learning rate (in milliseconds)
                 int learningRate = leastSquares(new ArrayList<Integer>(metric.keySet()), reactionAverages);

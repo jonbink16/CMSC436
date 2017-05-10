@@ -1,94 +1,186 @@
 [
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/common_google_signin_btn_text_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/fcb53a5fcced92fcec3e9814a7a004f517eb88eb/output/res/color/common_google_signin_btn_text_dark.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_edittext.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_edittext.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_spinner.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_search_url_text.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_search_url_text.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_seek_thumb.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_seek_thumb.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\fcb53a5fcced92fcec3e9814a7a004f517eb88eb\\output\\res\\color\\common_google_signin_btn_text_light.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_btn_colored_borderless_text_material.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_btn_colored_borderless_text_material.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/common_google_signin_btn_tint.xml",
-        "source": "/home/jonbink/.android/build-cache/fcb53a5fcced92fcec3e9814a7a004f517eb88eb/output/res/color/common_google_signin_btn_tint.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_switch_thumb.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_switch_thumb.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_btn_colored_text_material.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_btn_colored_text_material.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_search_url_text.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_hint_foreground_material_light.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_hint_foreground_material_light.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_spinner.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_spinner.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_spinner.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_primary_text_material_light.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_primary_text_material_light.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_primary_text_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_hint_foreground_material_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_hint_foreground_material_dark.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_default.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_default.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_default.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_hint_foreground_material_light.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_primary_text_disable_only_material_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_btn_checkable.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_btn_checkable.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_default.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_tint_switch_track.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_tint_switch_track.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_switch_track.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/switch_thumb_material_light.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/switch_thumb_material_light.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/common_google_signin_btn_text_light.xml",
-        "source": "/home/jonbink/.android/build-cache/fcb53a5fcced92fcec3e9814a7a004f517eb88eb/output/res/color/common_google_signin_btn_text_light.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_primary_text_material_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_primary_text_material_dark.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/switch_thumb_material_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/switch_thumb_material_dark.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_primary_text_disable_only_material_light.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_primary_text_disable_only_material_light.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\switch_thumb_material_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_secondary_text_material_light.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_secondary_text_material_light.xml"
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\fcb53a5fcced92fcec3e9814a7a004f517eb88eb\\output\\res\\color\\common_google_signin_btn_text_dark.xml"
     },
     {
-        "merged": "/home/jonbink/Desktop/CMSC436/CMSC436/sheets436/build/intermediates/res/merged/release/color/abc_secondary_text_material_dark.xml",
-        "source": "/home/jonbink/.android/build-cache/1c04d881fb48e955f74fc74d6b5d8a05283fa099/output/res/color/abc_secondary_text_material_dark.xml"
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_tint.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\fcb53a5fcced92fcec3e9814a7a004f517eb88eb\\output\\res\\color\\common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_tint.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\e38bbb49851d5b9e8943bf1847d0e6a839b98f06\\output\\res\\color\\common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\e38bbb49851d5b9e8943bf1847d0e6a839b98f06\\output\\res\\color\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\9b93213d6427bddb73bed42d010dd849f4118097\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "C:\\home\\jonbink\\Desktop\\CMSC436\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
+        "source": "C:\\home\\jonbink\\.android\\build-cache\\1c04d881fb48e955f74fc74d6b5d8a05283fa099\\output\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\CMSC436\\sheets436\\build\\intermediates\\res\\merged\\release\\color\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\Kevin\\.android\\build-cache\\e38bbb49851d5b9e8943bf1847d0e6a839b98f06\\output\\res\\color\\common_google_signin_btn_text_dark.xml"
     }
 ]
