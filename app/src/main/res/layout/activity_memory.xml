@@ -46,7 +46,8 @@
         android:layout_gravity="center"
         android:columnCount="3"
         android:layout_below="@+id/cognition_key"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:id="@+id/gridLayout">
 
         <Button
             android:id="@+id/button1"
@@ -111,5 +112,15 @@
             android:onClick="buttonClicked"
             android:text="9" />
     </GridLayout>
+
+    <Button
+        android:id="@+id/startMemoryTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Start Test"
+        android:onClick="startTest"
+        android:layout_below="@+id/cognition_key"
+        android:layout_toStartOf="@+id/gridLayout" />
 
 </RelativeLayout>
