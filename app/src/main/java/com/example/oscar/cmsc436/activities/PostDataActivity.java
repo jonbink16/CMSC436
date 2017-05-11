@@ -107,6 +107,7 @@ public class PostDataActivity extends AppCompatActivity implements Sheets.Host{
             findViewById(R.id.postButton).setClickable(false);
             findViewById(R.id.postButton).setEnabled(false);
         }
+
     }
 
     @Override

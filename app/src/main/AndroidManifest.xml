@@ -40,12 +40,13 @@
         <activity android:name=".activities.WalkingTestActivity" />
         <activity android:name=".activities.OutdoorWalkActivity" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBYwdH5N8BQd1vTmP00iS7-AM0hFO3EsxY" />
+
 
         <activity android:name=".activities.VibrationActivity" />
         <activity android:name=".activities.MemoryActivity" android:screenOrientation="landscape"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCYEyLMQBq8hSU1xKCHiX4v4RW07NYqRaU"/>
     </application>
 
 </manifest>
