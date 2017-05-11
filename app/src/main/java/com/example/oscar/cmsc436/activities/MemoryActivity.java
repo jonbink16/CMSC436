@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,12 +32,13 @@ import java.util.TreeMap;
 
 public class MemoryActivity extends AppCompatActivity{
 
+    private GridLayout gridLayout;
+    private Button startButton;
     private ImageView current_symbol;
     private int symbols[];
     private Random random;
-    private int score = 0, currentSymbolNumber, totalNumQuestions = 0;
+    private int score, currentSymbolNumber, totalNumQuestions;
     private boolean testRunning = true;
-    private CountDownTimer timer;
     private TextView scoreText;
     private static SpeechRecognizer speech = null;
     private static final String TAG = "MemoryTest";
@@ -45,11 +47,17 @@ public class MemoryActivity extends AppCompatActivity{
     private TreeMap<Integer, ArrayList<Long>> metric;
     private DateFormat df;
     private Date prevTime, currTime;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
+
+        startButton = (Button) findViewById(R.id.startMemoryTest);
+
+        gridLayout = (GridLayout) findViewById(R.id.gridLayout);
+        gridLayout.setVisibility(View.INVISIBLE);
 
         context = this;
         random = new Random();
@@ -61,16 +69,7 @@ public class MemoryActivity extends AppCompatActivity{
                 R.drawable.symbol4, R.drawable.symbol5, R.drawable.symbol6,
                 R.drawable.symbol7, R.drawable.symbol8, R.drawable.symbol9};
 
-        //metric = new HashMap<>();
-        metric = new TreeMap<>();
-        testResults = new HashMap<>();
-        for(int i = 1; i <= 9; i++)
-            testResults.put(i, new ArrayList<Long>());
-
-        changeSymbol();
-        listen();
-
-        timer = new CountDownTimer(30000, 1000) {
+        timer = new CountDownTimer(90000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //do nothing for now
@@ -84,6 +83,8 @@ public class MemoryActivity extends AppCompatActivity{
                 scoreText.setText("Number Correct: " + score + "\nNumber Wrong: " + numWrong);
                 testRunning = false;
                 speech.destroy();
+                startButton.setVisibility(View.VISIBLE);
+                gridLayout.setVisibility(View.INVISIBLE);
 
                 long reactionTimeSum = 0;
                 int numItems = 0;
@@ -105,7 +106,20 @@ public class MemoryActivity extends AppCompatActivity{
                 Database.getInstance().addMemoryTest(new MemoryTest(testResults, score, numWrong, avgReactionSpeed, learningRate, new Date()));
 
             }
-        }.start();
+        };
+    }
+    public void startTest(View view) {
+        score = 0;
+        totalNumQuestions = 0;
+        startButton.setVisibility(View.INVISIBLE);
+        gridLayout.setVisibility(View.VISIBLE);
+        metric = new TreeMap<>();
+        testResults = new HashMap<>();
+        for(int i = 1; i <= 9; i++)
+            testResults.put(i, new ArrayList<Long>());
+
+        changeSymbol();
+        timer.start();
     }
     //stores how many symbols we've seen x times
     public void testResultsToMetric() {
@@ -143,6 +157,9 @@ public class MemoryActivity extends AppCompatActivity{
 
         int sXY = sumXY - ((sumX * sumY) / n);
         int sXX = sumXsquared - (((int) Math.pow((double) sumX, 2)) / n);
+
+        if(sXX < 1)
+            sXX = 1;
         //int sYY = sumYsquared - (((int) Math.pow((double) sumY, 2)) / n);
         return sXY/sXX;
 
@@ -232,23 +249,18 @@ public class MemoryActivity extends AppCompatActivity{
         super.onDestroy();
         speech.destroy();
     }
-    class listener implements RecognitionListener
-    {
+    class listener implements RecognitionListener {
 
-        public void onReadyForSpeech(Bundle params)
-        {
+        public void onReadyForSpeech(Bundle params) {
             //Log.d(TAG, "onReadyForSpeech");
         }
-        public void onBeginningOfSpeech()
-        {
+        public void onBeginningOfSpeech() {
             //Log.d(TAG, "onBeginningOfSpeech");
         }
-        public void onRmsChanged(float rmsdB)
-        {
+        public void onRmsChanged(float rmsdB) {
             //Log.d(TAG, "onRmsChanged");
         }
-        public void onBufferReceived(byte[] buffer)
-        {
+        public void onBufferReceived(byte[] buffer) {
             //Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech() {
@@ -261,12 +273,10 @@ public class MemoryActivity extends AppCompatActivity{
             ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             checkRecording(data.get(0));
         }
-        public void onPartialResults(Bundle partialResults)
-        {
+        public void onPartialResults(Bundle partialResults) {
             //Log.d(TAG, "onPartialResults");
         }
-        public void onEvent(int eventType, Bundle params)
-        {
+        public void onEvent(int eventType, Bundle params) {
             //Log.d(TAG, "onEvent " + eventType);
         }
     }
