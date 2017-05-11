@@ -10,14 +10,39 @@
         android:id="@+id/vibrateDirections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Place your knuckle on the screen to begin. Say 'Yes' out loud when you are able to feel the vibration."/>
+        android:text="Select a vibration duration. Place your knuckle on the screen to begin. Say 'Yes' out loud when you are able to feel the vibration."
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/vibrationDuration"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/vibrateDirections">
+        <RadioButton
+            android:id="@+id/fiveSecButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 seconds"
+            android:layout_below="@+id/vibrateDirections"
+            android:layout_toStartOf="@+id/vibrateLevelText" />
 
+        <RadioButton
+            android:id="@+id/tenSecButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 seconds"
+            android:layout_below="@+id/vibrateDirections"
+            android:layout_toEndOf="@+id/vibrateLevelText" />
+    </RadioGroup>
     <TextView
-        android:layout_below="@+id/vibrateDirections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="Level: 1"
-        android:id="@+id/vibrateLevelText"/>
+        android:id="@+id/vibrateLevelText"
+        android:layout_below="@+id/vibrationDuration"
+        android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>

@@ -1,5 +1,4 @@
 package com.example.oscar.cmsc436.activities;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -17,6 +16,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,16 +46,23 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
     private boolean FINISHEDEXECUTE, testDone, listening;
     Handler h;
     private long timeStart, timeEnd;
+    private long duration = 10000;
     private static final String FELT_VIB = "yes";
     private SpeechRecognizer recognizer;
     private static final int PERM_REQUEST_REC_AUDIO = 1;
     private static final int VSTART = 3;
-
+    private RadioGroup radioGroup;
+    private RadioButton fiveSecRB, tenSecRB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vibration);
+        radioGroup = (RadioGroup) findViewById(R.id.vibrationDuration);
+        fiveSecRB = (RadioButton) findViewById(R.id.fiveSecButton);
+        tenSecRB = (RadioButton) findViewById(R.id.tenSecButton);
+        fiveSecRB.setChecked(true);
         v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+
         if(!v.hasVibrator()){
             //validDevice = false;
             Toast.makeText(getApplicationContext(), "Your device does not support vibration or an error occurred. " +
@@ -104,6 +112,7 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         FINISHEDEXECUTE = false;
         testDone = false;
         runRecognizerSetup();
+
     }
 
     @Override
@@ -111,7 +120,6 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         if(validDevice && vNum < LEVELS && FINISHEDEXECUTE && !testDone) {
             int eventaction = event.getAction();
             switch (eventaction) {
-
                 case MotionEvent.ACTION_DOWN:
                     if(!startedTest) {
                         interrupted = false;
@@ -149,9 +157,21 @@ public class VibrationActivity extends AppCompatActivity implements RecognitionL
         if(state == 0 && vNum < LEVELS) {
             float vib = (float)vNum/(float)10;
             long[] pattern = genVibratorPattern(vib,VIB_LENGTH);
+            long[] temp;
+            radioGroup.setEnabled(false);
+            fiveSecRB.setEnabled(false);
+            tenSecRB.setEnabled(false);
+            if (radioGroup.getCheckedRadioButtonId() == fiveSecRB.getId()) {
+                temp = new long[pattern.length / 2];
+                for (int i = 0; i < pattern.length / 2; i++) {
+                    temp[i] = pattern[i];
+                }
+                pattern = temp;
+                duration = 5000;
+            }
             v.vibrate(pattern,-1);
             l1 = System.currentTimeMillis();
-            h.postDelayed(vibrateThread, VIB_LENGTH);
+            h.postDelayed(vibrateThread, duration);
 
         }else{
             finishTest();
